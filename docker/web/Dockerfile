@@ -7,6 +7,5 @@ RUN yum -y install nginx-1.24.0
 RUN yum -y install php8.2-fpm php8.2-mysqlnd
 RUN mkdir /run/php-fpm
 RUN mkdir /var/run/php
-COPY php/www.conf /etc/php-fpm.d/www.conf
 
-CMD bash -c '/usr/sbin/php-fpm && /usr/sbin/nginx -g "daemon off;"'
+CMD bash -c 'php-fpm && nginx -g "daemon off;"'
