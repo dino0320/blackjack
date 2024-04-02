@@ -3,7 +3,5 @@ services:
     build: ./docker/web
     volumes:
       - .:/srv/release_date_notification
-      - ./docker/web/nginx/conf.d:/etc/nginx/conf.d
-      - ./docker/web/php/php-fpm.d:/etc/php-fpm.d
     ports:
       - "8080:80"
