@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker compose exec -it web php $@
+docker compose exec web php $@
