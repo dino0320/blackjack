@@ -2,7 +2,7 @@ services:
   web:
     build: ./docker/web
     volumes:
-      - .:/srv/release_date_notification
+      - .:/srv/blackjack
     ports:
       - 8080:80
     extra_hosts:
