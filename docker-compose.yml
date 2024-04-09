@@ -2,8 +2,17 @@ services:
   web:
     build: ./docker/web
     volumes:
-      - .:/srv/blackjack
+    - .:/srv/blackjack
     ports:
-      - 8080:80
+    - 8080:80
     extra_hosts:
-      - host.docker.internal:host-gateway
+    - host.docker.internal:host-gateway
+  db:
+    build: ./docker/db
+    ports:
+    - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: database
+      #MYSQL_USER: user
+      #MYSQL_PASSWORD: password
