@@ -20,5 +20,3 @@ COPY php/conf.d/99-xdebug.ini /etc/php.d/99-xdebug.ini
 RUN rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2023
 RUN yum -y install https://repo.mysql.com/mysql80-community-release-el9-1.noarch.rpm
 RUN yum -y install mysql-community-client-8.0.34
-
-CMD bash -c 'php-fpm && nginx -g "daemon off;"'
