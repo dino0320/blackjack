@@ -4,6 +4,9 @@ RUN yum -y install yum-utils
 COPY nginx/nginx.repo /etc/yum.repos.d/nginx.repo
 RUN yum -y install nginx-1.24.0
 COPY nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
+RUN sed -i s/notice/warn/ /etc/nginx/nginx.conf
+RUN ln -s /dev/stdout /var/log/nginx/access.log
+RUN ln -s /dev/stderr /var/log/nginx/error.log
 
 RUN yum -y install php8.2-fpm php8.2-mysqlnd
 RUN mkdir /run/php-fpm
