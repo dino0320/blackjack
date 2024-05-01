@@ -11,7 +11,11 @@ RUN ln -s /dev/stderr /var/log/nginx/error.log
 RUN yum -y install php8.2-fpm php8.2-mysqlnd
 RUN mkdir /run/php-fpm
 RUN mkdir /var/run/php
+COPY php/conf.d/zzz-php.ini /etc/php.d/zzz-php.ini
+COPY php/php-fpm.d/zzz-php-fpm.conf /etc/php-fpm.d/zzz-php-fpm.conf
 COPY php/php-fpm.d/zzz-www.conf /etc/php-fpm.d/zzz-www.conf
+RUN sed -i "s/error_log/;error_log/" /etc/php-fpm.conf
+RUN sed -i "s/php_admin_value\[error_log\]/;php_admin_value\[error_log\]/" /etc/php-fpm.d/www.conf
 
 RUN yum -y install php-pear-1:1.10.13 php8.2-devel
 RUN pecl install xdebug-3.3.1
