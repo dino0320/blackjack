@@ -24,3 +24,6 @@ services:
       timeout: 5s
       interval: 5s
       retries: 10
+
+  redis:
+    build: ./docker/redis
