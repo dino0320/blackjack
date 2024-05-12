@@ -7,6 +7,11 @@ services:
     - 8080:80
     extra_hosts:
     - host.docker.internal:host-gateway
+    command: /srv/blackjack/docker/web/start.sh
+    depends_on:
+      db:
+        condition: service_healthy
+
   db:
     build: ./docker/db
     environment:
@@ -14,3 +19,8 @@ services:
       MYSQL_DATABASE: database
       MYSQL_USER: user
       MYSQL_PASSWORD: password
+    healthcheck:
+      test: "mysqladmin ping -h 127.0.0.1 -u root -p$$MYSQL_ROOT_PASSWORD"
+      timeout: 5s
+      interval: 5s
+      retries: 10
