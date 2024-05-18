@@ -1,6 +1,10 @@
 #!/bin/bash
 
-cd /srv/blackjack
+set -euxo pipefail
+
+PROJECT_PATH=$1
+
+cd $PROJECT_PATH
 
 php artisan migrate
 
