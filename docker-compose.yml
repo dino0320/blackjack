@@ -7,10 +7,18 @@ services:
     - 8080:80
     extra_hosts:
     - host.docker.internal:host-gateway
-    command: /srv/blackjack/docker/web/start.sh
+    command: /srv/blackjack/docker/web/start.sh /srv/blackjack
     depends_on:
+      composer:
+        condition: service_completed_successfully
       db:
         condition: service_healthy
+
+  composer:
+    build: ./docker/composer
+    volumes:
+    - .:/srv/blackjack
+    command: /srv/blackjack/docker/composer/start.sh /srv/blackjack
 
   db:
     build: ./docker/db
