@@ -27,3 +27,7 @@ RUN yum -y install mysql-community-client-8.0.34
 
 RUN pecl install redis-6.0.2
 COPY php/conf.d/50-redis.ini /etc/php.d/50-redis.ini
+
+RUN touch /root/.bashrc
+COPY install-node.sh /tmp/install-node.sh
+RUN /tmp/install-node.sh 20.14.0
