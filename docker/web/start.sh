@@ -16,5 +16,9 @@ set -x
 
 npm ci
 
+# ログ出力などのため権限を与える
+chmod 777 "$PROJECT_PATH/storage/logs"
+chmod 777 "$PROJECT_PATH/storage/framework/views"
+
 php-fpm
 nginx -g "daemon off;"
