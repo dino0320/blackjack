@@ -7,8 +7,6 @@
   @vite(['resources/css/blackjack.css', 'resources/js/blackjack.js'])
 </head>
 <body>
-  <input type="button" value="TEST" id="test-button">
-
   <div id="card-template" class="card invisible">
     <!-- 裏面のコンテンツ -->
     <div class="back is-rotation">
