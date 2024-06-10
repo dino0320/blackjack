@@ -30,4 +30,5 @@ COPY php/conf.d/50-redis.ini /etc/php.d/50-redis.ini
 
 RUN touch /root/.bashrc
 COPY install-node.sh /tmp/install-node.sh
+RUN chmod 755 /tmp/install-node.sh
 RUN /tmp/install-node.sh 20.14.0

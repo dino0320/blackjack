@@ -8,7 +8,8 @@ services:
     - 5173:5173
     extra_hosts:
     - host.docker.internal:host-gateway
-    command: /srv/blackjack/docker/web/start.sh /srv/blackjack
+    command: bash -c "chmod 755 /srv/blackjack/docker/web/start.sh &&
+             /srv/blackjack/docker/web/start.sh /srv/blackjack"
     depends_on:
       composer:
         condition: service_completed_successfully
@@ -19,7 +20,8 @@ services:
     build: ./docker/composer
     volumes:
     - .:/srv/blackjack
-    command: /srv/blackjack/docker/composer/start.sh /srv/blackjack
+    command: bash -c "chmod 755 /srv/blackjack/docker/composer/start.sh &&
+             /srv/blackjack/docker/composer/start.sh /srv/blackjack"
 
   db:
     build: ./docker/db
