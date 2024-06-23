@@ -1,8 +1,11 @@
 <?php
 
+use App\Consts\ErrorCodeConst;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Validation\ValidationException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -15,5 +18,21 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        $exceptions->render(function (AuthenticationException $e) {
+            return response()->json(
+                [
+                    'error_code' => ErrorCodeConst::UNAUTHORIZED,
+                    'error_message' => $e->getMessage(),
+                ]
+            );
+        });
+
+        $exceptions->render(function (ValidationException $e) {
+            return response()->json(
+                [
+                    'error_code' => ErrorCodeConst::BAD_REQUEST,
+                    'error_message' => $e->getMessage(),
+                ]
+            );
+        });
     })->create();
