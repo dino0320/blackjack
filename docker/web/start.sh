@@ -6,7 +6,8 @@ PROJECT_PATH=$1
 
 cd $PROJECT_PATH
 
-php artisan migrate
+php artisan migrate --path=database/migrations/user --database=mysql
+php artisan migrate --path=database/migrations/master --database=sqlite
 
 # nvmが読み込まれていないため読み込む
 set +x
