@@ -54,8 +54,3 @@
   .win-or-lose-message {
     color: red;
   }
-
-  /* 表示しないようにするためのスタイル */
-  .invisible {
-    display: none;
-  }

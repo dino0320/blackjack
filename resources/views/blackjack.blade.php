@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <title></title>
   <meta charset="utf-8" />
-  @vite(['resources/css/blackjack.css', 'resources/js/blackjack.js'])
+  @vite(['resources/css/common.css', 'resources/css/blackjack.css', 'resources/js/blackjack.js'])
 </head>
 <body>
   <div id="card-template" class="card invisible">
@@ -20,7 +20,7 @@
 
   <div id="bet">
     BETしてください<br>
-    <input type="number" min="0" id="bet-chip">
+    <input type="number" min="0" id="bet-chip-text">
     <input type="button" value="OK" id="bet-button">
   </div>
 

@@ -98,7 +98,7 @@ export class BlackjackController {
         this.#betView.updateChipMessage(this.#betLogic.chip);
 
         if (this.#betLogic.chip <= 0) {
-            console.log('ゲームオーバーです');
+            // ゲームオーバー
             this.#matchCount = this.#MAX_MATCH_COUNT;
         }
     }
@@ -135,6 +135,14 @@ export class BlackjackController {
         }
 
         this.#finishGame();
+    }
+
+    /**
+     * ゲームが終了しているかどうか
+     * @returns {boolean} ゲームが終了していればtrue、そうでなければfalse
+     */
+    isFinished() {
+        return this.#matchCount >= this.#MAX_MATCH_COUNT && !this.#blackjackLogic.isGame;
     }
 
     /**
@@ -186,7 +194,7 @@ class BetView {
      * @returns {string} 賭けたチップの枚数
      */
     getBetChip() {
-        return this.#betElement.querySelector('#bet-chip').value;
+        return this.#betElement.querySelector('#bet-chip-text').value;
     }
 
     /**

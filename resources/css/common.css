@@ -1,0 +1,4 @@
+  /* 表示しないようにするためのスタイル */
+  .invisible {
+    display: none;
+  }

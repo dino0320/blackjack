@@ -1,4 +1,7 @@
+import { executeApi } from './modules/communication';
 import { BlackjackController } from './modules/blackjack';
+
+executeApi('start-blackjack');
 
 const blackjackController = new BlackjackController();
 
@@ -15,5 +18,19 @@ document.querySelector('#stand-button').addEventListener('click', function() {
 });
 
 document.querySelector('#next-button').addEventListener('click', function() {
+    if(blackjackController.isFinished()) {
+        executeApi(
+            'finish-blackjack',
+            null,
+            function () {
+                location.href = 'http://localhost:8080/home';
+            },
+            function () {
+                location.href = 'http://localhost:8080/home';
+            }
+        );
+        return;
+    }
+
     blackjackController.next();
 });
