@@ -27,8 +27,14 @@ document.querySelector('#ok-button').addEventListener('click', function () {
         function (response) {
             localStorage.setItem('token', response.token);
             nameElement.classList.add('invisible');
-            staminaElement.innerHTML = response.stamina;
-            gameHomeElement.classList.remove('invisible');
+            executeApi(
+                'create-game-data',
+                null,
+                function (response) {
+                    staminaElement.innerHTML = response.stamina;
+                    gameHomeElement.classList.remove('invisible');
+                }
+            );
         }
     );
 });

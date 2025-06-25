@@ -47,6 +47,8 @@ Route::post('/sign-up', [AuthenticationController::class, 'signUp']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/sign-in', [AuthenticationController::class, 'signIn']);
+
+    Route::post('/create-game-data', [BlackjackController::class, 'createGameData']);
      
     Route::post('/start-blackjack', [BlackjackController::class, 'startBlackjack']);
     
