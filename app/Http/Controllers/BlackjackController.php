@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Consts\UserConst;
 use App\Exceptions\UserException;
-use App\Models\Master\Stamina;
+use App\Repositories\master\StaminaRepository;
+use App\Repositories\user\UserRepository;
+use App\Repositories\user\UserStaminaRepository;
+use App\Services\StaminaService;
 use Illuminate\Http\Request;
 
 class BlackjackController extends Controller
@@ -18,29 +22,22 @@ class BlackjackController extends Controller
     {
         $user = $request->user();
 
-        $this->consumeStamina($user);
+        $userRepository = new UserRepository();
+        $userStaminaRepository = new UserStaminaRepository();
+        $staminaRepository = new StaminaRepository();
+
+        if ($user->is_game) {
+            throw new UserException("the game has been started. user_id: {$user->user_id}");
+        }
+
+        $stamina = $staminaRepository->selectByStaminaId(UserConst::DEFAULT_STAMINA_ID);
+        $userStamina = $userStaminaRepository->selectByUserIdAndStaminaId($user->user_id, $stamina->stamina_id);
+        StaminaService::consumeStamina($userStamina, $stamina);
 
         $user->is_game = true;
 
-        $stamina = Stamina::find(1);
-
-        $user->save();
-    }
-
-    /**
-     * スタミナを消費する
-     *
-     * @param User $user
-     * @return void
-     */
-    private function consumeStamina($user): void
-    {
-        $consumedStamina = 20;
-        if ($user->stamina < $consumedStamina) {
-            throw new UserException("require stamina more than {$consumedStamina}. stamina: {$user->stamina}");
-        }
-
-        $user->stamina -= $consumedStamina;
+        $userRepository->upsertModel($user);
+        $userStaminaRepository->upsertModel($userStamina);
     }
 
     /**
@@ -53,6 +50,8 @@ class BlackjackController extends Controller
     {
         $user = $request->user();
 
+        $userRepository = new UserRepository();
+
         if (!$user->is_game) {
             throw new UserException('blackjack already finished.');
         }
@@ -61,6 +60,6 @@ class BlackjackController extends Controller
 
         // 得点記録処理
 
-        $user->save();
+        $userRepository->upsertModel($user);
     }
 }

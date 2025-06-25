@@ -18,7 +18,6 @@ return new class extends Migration
             //$table->timestamp('email_verified_at')->nullable();
             //$table->string('password');
             $table->string('device_name');
-            $table->unsignedSmallInteger('stamina')->default(0);
             $table->boolean('is_game')->default(false);
             //$table->rememberToken();
             $table->timestamps();
