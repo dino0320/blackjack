@@ -1,7 +1,10 @@
 <?php
 
-use App\Http\Controllers\AuthenticationController;
-use App\Http\Controllers\BlackjackController;
+use App\Http\Controllers\CreateGameDataController;
+use App\Http\Controllers\FinishBlackjackController;
+use App\Http\Controllers\SignInController;
+use App\Http\Controllers\SignUpController;
+use App\Http\Controllers\StartBlackjackController;
 use App\Http\Middleware\PostProcessing;
 use App\Models\user\User;
 use Illuminate\Http\Request;
@@ -43,14 +46,14 @@ Route::post('/signin2', function (Request $request) {
     return ['token' => $token->plainTextToken];*/
 });
 
-Route::post('/sign-up', [AuthenticationController::class, 'signUp']);
+Route::post('/sign-up', [SignUpController::class, 'executeAPI']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/sign-in', [AuthenticationController::class, 'signIn']);
+    Route::post('/sign-in', [SignInController::class, 'executeAPI']);
 
-    Route::post('/create-game-data', [BlackjackController::class, 'createGameData']);
+    Route::post('/create-game-data', [CreateGameDataController::class, 'executeAPI']);
      
-    Route::post('/start-blackjack', [BlackjackController::class, 'startBlackjack']);
+    Route::post('/start-blackjack', [StartBlackjackController::class, 'executeAPI']);
     
-    Route::post('/finish-blackjack', [BlackjackController::class, 'finishBlackjack']);
+    Route::post('/finish-blackjack', [FinishBlackjackController::class, 'executeAPI']);
 });

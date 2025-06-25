@@ -11,46 +11,15 @@ use App\Services\StaminaService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class AuthenticationController extends Controller
+class SignInController extends Controller
 {
     /**
-     * サインアップする
+     * Sing in.
      *
      * @param Request $request
      * @return JsonResponse
      */
-    public function signUp(Request $request): JsonResponse
-    {
-        $request->validate([
-            'user_name' => 'required',
-            //'email' => 'required|email',
-            //'password' => 'required',
-            'device_name' => 'required',
-        ]);
-
-        $userRepository = new UserRepository();
-        
-        $user = new User([
-            'user_name' => $request->user_name,
-            'device_name' => $request->device_name,
-        ]);
-
-        $userRepository->upsertModel($user);
-    
-        $token = $user->createToken($request->device_name);
-    
-        return response()->json([
-            'token' => $token->plainTextToken,
-        ]);
-    }
-
-    /**
-     * サインインする
-     *
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function signIn(Request $request): JsonResponse
+    public function executeCommand(Request $request): JsonResponse
     {
         $user = $request->user();
 
