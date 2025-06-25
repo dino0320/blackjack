@@ -2,17 +2,20 @@ import { executeApi } from './modules/communication';
 
 const userAgent = window.navigator.userAgent;
 const nameElement = document.querySelector('#name');
+const gameHomeElement = document.querySelector('#game-home');
+const staminaElement = document.querySelector('#stamina');
 const startButtonElement = document.querySelector('#start-button');
 
 if (localStorage.getItem('token') === null) {
     nameElement.classList.remove('invisible');
-    startButtonElement.classList.add('invisible');
+    gameHomeElement.classList.add('invisible');
 } else {
     executeApi(
         'sign-in',
         null,
         function (response) {
             localStorage.setItem('token', response.token);
+            staminaElement.innerHTML = response.stamina;
         }
     );
 }
@@ -24,7 +27,8 @@ document.querySelector('#ok-button').addEventListener('click', function () {
         function (response) {
             localStorage.setItem('token', response.token);
             nameElement.classList.add('invisible');
-            startButtonElement.classList.remove('invisible');
+            staminaElement.innerHTML = response.stamina;
+            gameHomeElement.classList.remove('invisible');
         }
     );
 });

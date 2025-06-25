@@ -15,7 +15,10 @@
       <input type="text" id="name-text"><input type="button" value="OK" id="ok-button">
     </div>
 
-    <input type="button" value="START" id="start-button">
+    <div id="game-home">
+      スタミナ: <div id="stamina"></div>
+      <input type="button" value="START" id="start-button">
+    </div>
   </div>
 </body>
 </html>

@@ -8,6 +8,7 @@ use App\Models\user\UserStamina;
 use App\Repositories\master\StaminaRepository;
 use App\Repositories\user\UserRepository;
 use App\Repositories\user\UserStaminaRepository;
+use App\Services\StaminaService;
 use DateTime;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -53,7 +54,10 @@ class AuthenticationController extends Controller
     
         $token = $user->createToken($request->device_name);
     
-        return response()->json(['token' => $token->plainTextToken]);
+        return response()->json([
+            'token' => $token->plainTextToken,
+            'stamina' => $userStamina->point,
+        ]);
     }
 
     /**
@@ -65,11 +69,21 @@ class AuthenticationController extends Controller
     public function signIn(Request $request): JsonResponse
     {
         $user = $request->user();
+
+        $userStaminaRepository = new UserStaminaRepository();
+        $staminaRepository = new StaminaRepository();
+
+        $stamina = $staminaRepository->selectByStaminaId(UserConst::DEFAULT_STAMINA_ID);
+        $userStamina = $userStaminaRepository->selectByUserIdAndStaminaId($user->user_id, $stamina->stamina_id);
+        StaminaService::recoverStamina($userStamina, $stamina);
         
         $user->tokens()->delete();
         
         $token = $user->createToken($user->device_name);
         
-        return response()->json(['token' => $token->plainTextToken]);
+        return response()->json([
+            'token' => $token->plainTextToken,
+            'stamina' => $userStamina->point,
+        ]);
     }
 }
