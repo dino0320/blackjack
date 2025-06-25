@@ -3,7 +3,7 @@
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\BlackjackController;
 use App\Http\Middleware\PostProcessing;
-use App\Models\User\User;
+use App\Models\user\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;

@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Models\User;
+namespace App\Models\user;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Consts\DatabaseConst;
-use App\Consts\UserConst;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -36,7 +35,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $attributes = [
-        'stamina' => UserConst::INITIAL_STAMINA,
+        //'stamina' => UserConst::INITIAL_STAMINA,
         'is_game' => false,
     ];
 
@@ -50,7 +49,6 @@ class User extends Authenticatable
         'device_name',
         //'email',
         //'password',
-        'stamina',
     ];
 
     /**
