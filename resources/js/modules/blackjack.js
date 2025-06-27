@@ -177,7 +177,7 @@ class BetView {
     /**
      * Chip message suffix
      */
-    get #CHIP_MESSAGE_SUFFIX() { return '枚'; }
+    get #CHIP_MESSAGE_SUFFIX() { return ' chips'; }
 
     /**
      * Bet element
