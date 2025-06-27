@@ -18,6 +18,7 @@
     <div id="game-home">
       スタミナ: <div id="stamina"></div>
       <input type="button" value="START" id="start-button">
+      <input type="button" value="RANKING" id="ranking-button">
     </div>
   </div>
 </body>

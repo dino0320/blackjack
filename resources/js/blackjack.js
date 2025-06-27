@@ -21,7 +21,7 @@ document.querySelector('#next-button').addEventListener('click', function() {
     if(blackjackController.isFinished()) {
         executeApi(
             'finish-blackjack',
-            null,
+            { score: blackjackController.getChip() },
             function () {
                 location.href = 'http://localhost:8080/home';
             },

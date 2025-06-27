@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CreateGameDataController;
 use App\Http\Controllers\FinishBlackjackController;
+use App\Http\Controllers\GetRankingController;
 use App\Http\Controllers\SignInController;
 use App\Http\Controllers\SignUpController;
 use App\Http\Controllers\StartBlackjackController;
@@ -56,4 +57,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/start-blackjack', [StartBlackjackController::class, 'executeAPI']);
     
     Route::post('/finish-blackjack', [FinishBlackjackController::class, 'executeAPI']);
+
+    Route::post('/get-ranking', [GetRankingController::class, 'executeAPI']);
 });

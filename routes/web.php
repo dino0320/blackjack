@@ -17,3 +17,7 @@ Route::get('/home', function () {
 Route::get('/game', function () {
     return view('blackjack');
 });
+
+Route::get('/ranking', function () {
+    return view('ranking');
+});

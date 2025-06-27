@@ -2,3 +2,8 @@
   .invisible {
     display: none;
   }
+
+  /* tableのスタイル */
+  table, th, td {
+    border: 1px solid;
+  }

@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('user_staminas', function (Blueprint $table) {
             $table->id('user_stamina_id');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedInteger('stamina_id');
-            $table->unsignedInteger('point');
-            $table->dateTime('last_updated_at');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedInteger('stamina_id')->nullable();
+            $table->unsignedInteger('point')->nullable();
+            $table->timestamp('last_updated_at')->nullable();
             $table->timestamps();
             $table->index(['user_id', 'stamina_id']);
         });

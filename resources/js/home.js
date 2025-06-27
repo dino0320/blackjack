@@ -5,6 +5,7 @@ const nameElement = document.querySelector('#name');
 const gameHomeElement = document.querySelector('#game-home');
 const staminaElement = document.querySelector('#stamina');
 const startButtonElement = document.querySelector('#start-button');
+const rankingButtonElement = document.querySelector('#ranking-button');
 
 if (localStorage.getItem('token') === null) {
     nameElement.classList.remove('invisible');
@@ -41,4 +42,8 @@ document.querySelector('#ok-button').addEventListener('click', function () {
 
 startButtonElement.addEventListener('click', function () {
     location.href = 'http://localhost:8080/game';
+});
+
+rankingButtonElement.addEventListener('click', function () {
+    location.href = 'http://localhost:8080/ranking';
 });

@@ -35,8 +35,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $attributes = [
-        //'stamina' => UserConst::INITIAL_STAMINA,
         'is_game' => false,
+        'high_score' => 0,
     ];
 
     /**

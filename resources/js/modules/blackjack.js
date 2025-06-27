@@ -161,6 +161,14 @@ export class BlackjackController {
         this.#blackjackView.cleanView();
         this.#betView.showBet();
     }
+
+    /**
+     * チップを取得する
+     * @returns {number}
+     */
+    getChip() {
+        return this.#betLogic.chip;
+    }
 }
 
 /**

@@ -41,9 +41,8 @@ class StaminaService
             return;
         }
 
-        $lastUpdatedDateTime = new DateTime($userStamina->last_updated_at);
         $currentDateTime = new DateTime();
-        $diff = $currentDateTime->getTimestamp() - $lastUpdatedDateTime->getTimestamp();
+        $diff = $currentDateTime->getTimestamp() - $userStamina->last_updated_at->getTimestamp();
         $userStamina->point = min((int)($userStamina->point + (($stamina->recovery_point / CommonConst::SECONDS_IN_AN_HOUR) * $diff)), $stamina->max_point);
         $userStamina->last_updated_at = $currentDateTime;
     }

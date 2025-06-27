@@ -5,7 +5,7 @@ namespace App\Consts;
 class UserConst
 {
     /**
-     * デフォルトスタミナID
+     * Default stamina_id.
      */
     public const DEFAULT_STAMINA_ID = 1;
 }

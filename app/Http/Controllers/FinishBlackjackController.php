@@ -19,15 +19,21 @@ class FinishBlackjackController extends Controller
     {
         $user = $request->user();
 
+        $request->validate([
+            'score' => 'required|integer',
+        ]);
+
         $userRepository = new UserRepository();
 
         if (!$user->is_game) {
             throw new UserException('blackjack already finished.');
         }
 
-        $user->is_game = false;
+        if ($request->score > $user->high_score) {
+            $user->high_score = $request->score;
+        }
 
-        // 得点記録処理
+        $user->is_game = false;
 
         $userRepository->upsertModel($user);
 

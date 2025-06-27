@@ -13,14 +13,16 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id('user_id');
-            $table->string('user_name');
+            $table->string('user_name')->nullable();
             //$table->string('email')->unique();
             //$table->timestamp('email_verified_at')->nullable();
             //$table->string('password');
-            $table->string('device_name');
-            $table->boolean('is_game')->default(false);
+            $table->string('device_name')->nullable();
+            $table->boolean('is_game')->nullable()->default(false);
+            $table->unsignedInteger('high_score')->nullable()->default(0);
             //$table->rememberToken();
             $table->timestamps();
+            $table->index('high_score');
         });
 
         /*Schema::create('password_reset_tokens', function (Blueprint $table) {
