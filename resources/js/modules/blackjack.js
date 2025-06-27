@@ -1,35 +1,35 @@
 /**
- * ブラックジャックコントローラークラス
+ * Blackjack controller
  */
 export class BlackjackController {
     /**
-     * 最大試合回数
+     * Max number of matches
      */
     get #MAX_MATCH_COUNT() { return 3; }
 
     /**
-     * BETビューインスタンス
+     * BetView instance
      */
     #betView;
     /**
-     * BETロジックインスタンス
+     * BetLogic instance
      */
     #betLogic;
     /**
-     * ブラックジャックビューインスタンス
+     * BlackjackView instance
      */
     #blackjackView;
     /**
-     * ブラックジャックロジックインスタンス
+     * BlackjackLogic instance
      */
     #blackjackLogic;
     /**
-     * 試合回数
+     * Number of matches
      */
     #matchCount;
 
     /**
-     * コンストラクター
+     * Constructor
      */
     constructor() {
         this.#matchCount = 0;
@@ -44,11 +44,11 @@ export class BlackjackController {
     }
 
     /**
-     * BETする
+     * Bet.
      */
     bet() {
         if (this.#blackjackLogic.isGame) {
-            throw new Error('ゲーム中のためBETできません');
+            throw new Error('You can\'t bet while playing.');
         }
 
         this.#betLogic.bet(this.#betView.getBetChip());
@@ -60,7 +60,7 @@ export class BlackjackController {
     }
 
     /**
-     * ゲームを初期化する
+     * Initialize the game.
      */
     initializeGame() {
         this.#matchCount++;
@@ -79,16 +79,16 @@ export class BlackjackController {
     }
 
     /**
-     * 試合回数が最大を超えているかどうかチェックする
+     * Check if the match count exceed the max.
      */
     #checkIfMatchCountExceedsMax() {
         if (this.#matchCount > this.#MAX_MATCH_COUNT) {
-            throw new Error('試合回数が最大を超えています');
+            throw new Error('The match count exceed the max.');
         }
     }
 
     /**
-     * ゲームの終了処理をする
+     * Finish the game.
      */
     #finishGame() {
         this.#blackjackView.finishView(this.#blackjackLogic.getWinOrLose());
@@ -98,13 +98,13 @@ export class BlackjackController {
         this.#betView.updateChipMessage(this.#betLogic.chip);
 
         if (this.#betLogic.chip <= 0) {
-            // ゲームオーバー
+            // Game over
             this.#matchCount = this.#MAX_MATCH_COUNT;
         }
     }
 
     /**
-     * HITする
+     * Hit.
      */
     hit() {
         this.#checkIfMatchCountExceedsMax();
@@ -121,7 +121,7 @@ export class BlackjackController {
     }
 
     /**
-     * STANDする
+     * Stand.
      */
     stand() {
         this.#checkIfMatchCountExceedsMax();
@@ -138,23 +138,22 @@ export class BlackjackController {
     }
 
     /**
-     * ゲームが終了しているかどうか
-     * @returns {boolean} ゲームが終了していればtrue、そうでなければfalse
+     * Whether the game finish or not.
+     * @returns {boolean} Return true if the game finish, otherwise false
      */
     isFinished() {
         return this.#matchCount >= this.#MAX_MATCH_COUNT && !this.#blackjackLogic.isGame;
     }
 
     /**
-     * 次への処理をする
+     * Proceed to the next step.
      */
     next() {
         if (this.#blackjackLogic.isGame) {
-            throw new Error('ゲーム中のため次にいけません');
+            throw new Error('You can\'t go to the next step while playing.');
         }
 
         if (this.#matchCount >= this.#MAX_MATCH_COUNT) {
-            console.log('ゲーム終了です');
             return;
         }
 
@@ -163,7 +162,7 @@ export class BlackjackController {
     }
 
     /**
-     * チップを取得する
+     * Get your chip.
      * @returns {number}
      */
     getChip() {
@@ -172,25 +171,25 @@ export class BlackjackController {
 }
 
 /**
- * BETビュークラス
+ * BetView
  */
 class BetView {
     /**
-     * チップの枚数のサフィックス
+     * Chip message suffix
      */
     get #CHIP_MESSAGE_SUFFIX() { return '枚'; }
 
     /**
-     * BETの要素
+     * Bet element
      */
     #betElement;
     /**
-     * チップの枚数のメッセージの要素
+     * Chip message element
      */
     #chipMessageElement;
 
     /**
-     * コンストラクタ―
+     * Constructor
      */
     constructor() {
         this.#betElement = document.querySelector('#bet');
@@ -198,30 +197,30 @@ class BetView {
     }
 
     /**
-     * 賭けたチップの枚数を返す
-     * @returns {string} 賭けたチップの枚数
+     * Get bet chip.
+     * @returns {string} Number of bet chip
      */
     getBetChip() {
         return this.#betElement.querySelector('#bet-chip-text').value;
     }
 
     /**
-     * BETの要素を隠す
+     * Hide bet.
      */
     hideBet() {
         this.#betElement.classList.add('invisible');
     }
 
     /**
-     * BETの要素を見せる
+     * Show bet.
      */
     showBet() {
         this.#betElement.classList.remove('invisible');
     }
 
     /**
-     * チップの枚数のメッセージを更新する
-     * @param {number} chip チップの枚数
+     * Update chip message.
+     * @param {number} chip
      */
     updateChipMessage(chip) {
         this.#chipMessageElement.innerHTML = chip + this.#CHIP_MESSAGE_SUFFIX;
@@ -229,25 +228,25 @@ class BetView {
 }
 
 /**
- * BETロジッククラス
+ * BetLogic
  */
 class BetLogic {
     /**
-     * 初期チップの枚数
+     * Initial number of chip
      */
     get #INITIAL_NUMBER_OF_CHIP() { return 100; }
 
     /**
-     * チップの枚数
+     * Number of chip
      */
     #chip;
     /**
-     * 賭けたチップの枚数
+     * Number of bet chip
      */
     #betChip;
 
     /**
-     * コンストラクタ―
+     * Constructor
      */
     constructor() {
         this.#chip = this.#INITIAL_NUMBER_OF_CHIP;
@@ -255,46 +254,46 @@ class BetLogic {
     }
 
     /**
-     * チップの枚数のゲッター
+     * The getter of the number of chip.
      */
     get chip() {
         return this.#chip;
     }
 
     /**
-     * 賭けたチップの枚数のゲッター
+     * The getter of the number of bet chip.
      */
     get betChip() {
         return this.#betChip;
     }
 
     /**
-     * BETする
+     * Bet.
      */
     bet(betChip) {
         this.#betChip = parseInt(betChip);
         if (isNaN(this.#betChip)) {
-            throw new Error('数値を入力してください');
+            throw new Error('Please enter a number.');
         }
 
         if (this.#betChip <= 0) {
-            throw new Error('正の整数を入力してください');
+            throw new Error('Please enter a positive integer.');
         }
 
         if (this.#betChip > this.#chip) {
-            throw new Error('所持チップの枚数を超えています');
+            throw new Error('The Number of bet chip exceeds your own chip.');
         }
 
         this.#chip -= this.#betChip;
     }
 
     /**
-     * チップの枚数を計算する
-     * @param {number} winOrLose 勝敗
+     * Calculate the number of chip.
+     * @param {number} winOrLose
      */
     calcChip(winOrLose) {
         if (this.#betChip <= 0) {
-            throw new Error('BETしてください');
+            throw new Error('Please bet.');
         }
 
         switch(winOrLose) {
@@ -310,7 +309,7 @@ class BetLogic {
                 break;
 
             default:
-                throw new Error('勝敗が不正な値です');
+                throw new Error('The value of win or lose is invalid.');
         }
 
         this.#betChip = 0;
@@ -318,66 +317,66 @@ class BetLogic {
 }
 
 /**
- * ブラックジャックビュークラス
+ * BlackjackView
  */
 class BlackjackView {
     /**
-     * プレイヤーの手札の合計のメッセージのプレフィックス
+     * Prefix of sum of player hand message
      */
-    get #PLAYER_HAND_SUM_MESSAGE_PREFIX() { return 'プレイヤー: '; }
+    get #PLAYER_HAND_SUM_MESSAGE_PREFIX() { return 'Player: '; }
     /**
-     * ディーラーの手札の合計のメッセージのプレフィックス
+     * Prefix of sum of dealer hand message
      */
-    get #DEALER_HAND_SUM_MESSAGE_PREFIX() { return 'ディーラー: '; }
+    get #DEALER_HAND_SUM_MESSAGE_PREFIX() { return 'Dealer: '; }
 
     /**
-     * 隠されたカードのインデックス
+     * Index of hidden card
      */
     #hiddenCardIndex;
     /**
-     * 隠されたカードの画像のパスリスト
+     * List of hidden card image sources
      */
     #hiddenCardImageSrcList;
 
     /**
-     * カードのテンプレートの要素
+     * Card template element
      */
     #cardTemplateElement;
     /**
-     * プレイヤーの手札の要素
+     * Player hand element
      */
     #playerHandElement;
     /**
-     * ディーラーの手札の要素
+     * Dealer hand element
      */
     #dealerHandElement;
     /**
-     * プレイヤーの手札の合計のメッセージの要素
+     * Sum of player hand message element
      */
     #playerHandSumMessageElement;
     /**
-     * ディーラーの手札の合計のメッセージの要素
+     * Sum of dealer hand message element
      */
     #dealerHandSumMessageElement;
     /**
-     * 勝敗メッセージの要素
+     * Win or lose message element
      */
     #winOrLoseMessageElement;
     /**
-     * HITボタンの要素
+     * Hit Button element
      */
     #hitButtonElement;
     /**
-     * STANDボタンの要素
+     * Stand Button element
      */
     #standButtonElement;
     /**
-     * 次へボタンの要素
+     * Next Button element
      */
     #nextButtonElement;
 
     /**
-     * コンストラクター
+     * Constructor
      */
     constructor() {
         this.#hiddenCardIndex = 0;
@@ -397,9 +396,9 @@ class BlackjackView {
     }
 
     /**
-     * 手札を初期化する
-     * @param {Hand} playerHand プレイヤーの手札 
-     * @param {Hand} dealerHand ディーラーの手札
+     * Initialize hand.
+     * @param {Hand} playerHand 
+     * @param {Hand} dealerHand
      */
     initializeHand(playerHand, dealerHand) {
         this.addPlayerCards(playerHand.cards);
@@ -410,8 +409,8 @@ class BlackjackView {
     }
 
     /**
-     * プレイヤーの手札にカードリストを追加する
-     * @param {Array<Card>} cards カードリスト
+     * Add cards to player hand.
+     * @param {Array<Card>} cards
      */
     addPlayerCards(cards) {
         for (let i = 0; i< cards.length; i++) {
@@ -420,16 +419,16 @@ class BlackjackView {
     }
 
     /**
-     * プレイヤーの手札にカードを追加する
-     * @param {Card} card カード
+     * Add a card to player hand.
+     * @param {Card} card
      */
     addPlayerCard(card) {
         this.#addCard(card, this.#playerHandElement);
     }
 
     /**
-     * ディーラーの手札にカードリストを追加する
-     * @param {Array<Card>} cards カードリスト
+     * Add cards to dealer hand.
+     * @param {Array<Card>} cards
      */
     addDealerCards(cards) {
         for (let i = 0; i< cards.length; i++) {
@@ -438,20 +437,20 @@ class BlackjackView {
     }
 
     /**
-     * ディーラーの手札にカードを追加する
-     * @param {Card} card カード
+     * Add a card to dealer hand.
+     * @param {Card} card
      */
     addDealerCard(card) {
         this.#addCard(card, this.#dealerHandElement);
     }
 
     /**
-     * 手札にカードを追加する
-     * @param {Element} handElement 手札の要素
-     * @param {Card} card カード
+     * Add a card to hand
+     * @param {Element} handElement
+     * @param {Card} card
      */
     #addCard(card, handElement) {
-        // カードのテンプレートの要素をコピーしてカードの要素を作成する
+        // Create a card element copying a card template.
         const cardElement = this.#cardTemplateElement.cloneNode(true);
         cardElement.removeAttribute('id');
         cardElement.classList.remove('invisible');
@@ -463,21 +462,21 @@ class BlackjackView {
             return;
         }
 
-        // 裏面だったらカードを隠す
+        // Hide a card if it's face down.
         this.#hideCard(cardElement, card.imageSrc);
     }
 
     /**
-     * カードを隠す
-     * @param {Element} cardElement カードの要素
-     * @param {string} cardImageSrc カードの画像のパス
+     * Hide a card.
+     * @param {Element} cardElement
+     * @param {string} cardImageSrc
      */
     #hideCard(cardElement, cardImageSrc) {
         cardElement.dataset.hiddenCardIndex = this.#hiddenCardIndex;
 
         this.#hiddenCardImageSrcList.push(cardImageSrc);
 
-        // 回転しないようにし、カードの画像のパスを削除する
+        // Stop a card rotating and remove its image source.
         const cardFrontElement = cardElement.querySelector('.front');
         cardElement.querySelector('.back').classList.remove('is-rotation');
         cardFrontElement.classList.remove('is-rotation');
@@ -487,9 +486,9 @@ class BlackjackView {
     }
 
     /**
-     * 手札の合計のメッセージを更新する
-     * @param {number} playerHandSum プレイヤーの手札の値
-     * @param {number} dealerHandSum ディーラーの手札の値
+     * Update the sum of hand message.
+     * @param {number} playerHandSum
+     * @param {number} dealerHandSum
      */
     updateHandValueMessage(playerHandSum, dealerHandSum) {
         this.#playerHandSumMessageElement.innerHTML = this.#PLAYER_HAND_SUM_MESSAGE_PREFIX + playerHandSum;
@@ -497,8 +496,8 @@ class BlackjackView {
     }
 
     /**
-     * ビューの終了処理をする
-     * @param {number} winOrLose 勝敗
+     * Finish the view.
+     * @param {number} winOrLose
      */
     finishView(winOrLose) {
         this.#showCards();
@@ -509,30 +508,30 @@ class BlackjackView {
 
         switch(winOrLose) {
             case BlackjackLogic.WIN:
-                this.#winOrLoseMessageElement.innerHTML = 'あなたの勝ちです';
+                this.#winOrLoseMessageElement.innerHTML = 'You win.';
                 break;
 
             case BlackjackLogic.DRAW:
-                this.#winOrLoseMessageElement.innerHTML = '引き分けです';
+                this.#winOrLoseMessageElement.innerHTML = 'Draw.';
                 break;
 
             case BlackjackLogic.LOSE:
-                this.#winOrLoseMessageElement.innerHTML = 'あなたの負けです';
+                this.#winOrLoseMessageElement.innerHTML = 'You lose.';
                 break;
 
             default:
-                throw new Error('勝敗が不正な値です');
+                throw new Error('The value of win or lose is invalid.');
         }
     }
 
     /**
-     * 隠されたカードを見せる
+     * Show hidden cards.
      */
     #showCards() {
         const hiddenCardImageSrcList = this.#hiddenCardImageSrcList
         document.querySelectorAll('.card').forEach(function (cardElement) {
             if ('hiddenCardIndex' in cardElement.dataset) {
-                // 回転するようにし、カードの画像のパスを設定する
+                // Make a card rotate and set its image source.
                 const cardFrontElement = cardElement.querySelector('.front');
                 cardFrontElement.classList.add('is-rotation');
                 cardElement.querySelector('.back').classList.add('is-rotation');
@@ -542,14 +541,14 @@ class BlackjackView {
     }
 
     /**
-     * ビューをきれいにする
+     * Clean the view.
      */
     cleanView() {
-        // プレイヤーの手札を空にする
+        // Empty player hand.
         const playerHandElement = this.#playerHandElement.cloneNode(false);
         this.#playerHandElement.parentNode.replaceChild(playerHandElement, this.#playerHandElement);
         this.#playerHandElement = playerHandElement;
-        // ディーラーの手札を空にする
+        // Empty dealer hand.
         const dealerHandElement = this.#dealerHandElement.cloneNode(false);
         this.#dealerHandElement.parentNode.replaceChild(dealerHandElement, this.#dealerHandElement);
         this.#dealerHandElement = dealerHandElement;
@@ -565,55 +564,55 @@ class BlackjackView {
 }
 
 /**
- * ブラックジャックロジッククラス
+ * BlackjackLogic
  */
 class BlackjackLogic {
     /**
-     * ブラックジャック
+     * Blackjack
      */
     static get BLACKJACK() { return 21; }
     /**
-     * 勝ち
+     * Win
      */
     static get WIN() { return 1; }
     /**
-     * 引き分け
+     * Draw
      */
     static get DRAW() { return 0; }
     /**
-     * 負け
+     * Lose
      */
     static get LOSE() { return -1; }
 
     /**
-     * 初期手札の枚数
+     * Initial number of hand
      */
     get #INITIAL_NUMBER_OF_HAND() { return 2; }
 
     /**
-     * ディーラーの手札の最大枚数
+     * Max number of dealer hand
      */
-    get #MAX_DEALER_NUMBER_OF_HAND() { return 17; }
+    get #MAX_NUMBER_OF_DEALER_HAND() { return 17; }
 
     /**
-     * ゲーム中かどうか
+     * Whether in game or not
      */
     #isGame;
     /**
-     * デッキ
+     * Deck
      */
     #deck;
     /**
-     * プレイヤーの手札
+     * Player hand
      */
     #playerHand;
     /**
-     * ディーラーの手札
+     * Dealer hand
      */
     #dealerHand;
 
     /**
-     * コンストラクター
+     * Constructor
      */
     constructor() {
         this.#isGame = false;
@@ -623,28 +622,28 @@ class BlackjackLogic {
     }
 
     /**
-     * ゲーム中かどうかのゲッター
+     * The getter of whether in game or not.
      */
     get isGame() {
         return this.#isGame;
     }
 
     /**
-     * プレイヤーの手札のゲッター
+     * The getter of player hand.
      */
     get playerHand() {
         return this.#playerHand;
     }
 
     /**
-     * ディーラーの手札のゲッター
+     * The getter of dealer hand.
      */
     get dealerHand() {
         return this.#dealerHand;
     }
 
     /**
-     * ゲームを初期化する
+     * Initialize the game.
      */
     initializeGame() {
         this.#isGame = true;
@@ -656,13 +655,13 @@ class BlackjackLogic {
         this.#initializeHand();
 
         if (this.#isBlackjack()) {
-            // 初期手札がブラックジャックなら終了
+            // Finish the game if the initial hand is blackjack.
             this.#finishGame();
         }
     }
 
     /**
-     * 手札を初期化する
+     * Initialize hand.
      */
     #initializeHand() {
         for (let i = 0; i < this.#INITIAL_NUMBER_OF_HAND; i++) {
@@ -673,10 +672,10 @@ class BlackjackLogic {
     }
 
     /**
-     * カードを引く
-     * @param {Hand} hand 手札
-     * @param {boolean} isFront 表面かどうか
-     * @returns {Card} カード
+     * Draw a card.
+     * @param {Hand} hand
+     * @param {boolean} isFront
+     * @returns {Card}
      */
     #drawCard(hand, isFront = true) {
         const card = this.#deck.drawCard();
@@ -687,15 +686,15 @@ class BlackjackLogic {
     }
 
     /**
-     * ブラックジャックかどうか
-     * @returns {boolean} ブラックジャックならtrue、そうでなければfalse
+     * Whether player hand is blackjack.
+     * @returns {boolean} Return true if player hand is blackjack, otherwise false
      */
     #isBlackjack() {
         return this.#playerHand.calcHand() === BlackjackLogic.BLACKJACK;
     }
 
     /**
-     * ゲームの終了処理を行う
+     * Finish the game.
      */
     #finishGame() {
         this.#isGame = false;
@@ -706,12 +705,12 @@ class BlackjackLogic {
     }
 
     /**
-     * プレイヤーの勝敗を取得する
-     * @returns {number} プレイヤーの勝ちなら1、引き分けなら0、負けなら-1
+     * Get player's win or lose.
+     * @returns {number} Return 1 if player wins, 0 if it draw, -1 if player loses
      */
     getWinOrLose() {
         if (this.#isGame) {
-            throw new Error('ゲーム中のため勝敗を取得できません');
+            throw new Error('Still in game.');
         }
 
         const playerSum = this.#playerHand.calcHand();
@@ -737,18 +736,18 @@ class BlackjackLogic {
     }
 
     /**
-     * HITする
-     * @returns {Card} プレイヤーが引いたカード
+     * Hit.
+     * @returns {Card} A card player draws
      */
     hit() {
         if (!this.#isGame) {
-            throw new Error('ゲームは終了しているためHITできません');
+            throw new Error('The game already finished.');
         }
 
         const card = this.#drawCard(this.#playerHand);
 
         if (this.#playerHand.calcHand() > BlackjackLogic.BLACKJACK) {
-            // バーストしてたら終了
+            // Finish the game if player hand is burst.
             this.#finishGame();
         }
 
@@ -756,17 +755,17 @@ class BlackjackLogic {
     }
 
     /**
-     * STANDする
-     * @returns {Array<Card>} ディーラーが引いたカードリスト
+     * Stand.
+     * @returns {Array<Card>} List of cards dealer drew
      */
     stand() {
         if (!this.#isGame) {
-            throw new Error('ゲームは終了しているためSTANDできません');
+            throw new Error('The game already finished.');
         }
 
-        // ディーラーは手札の合計が17以上になるまでカードを引く
+        // Dealer draws cards until the sum of dealer hand is more than 17.
         const cards = new Array();
-        while (this.#dealerHand.calcHand() < this.#MAX_DEALER_NUMBER_OF_HAND) {
+        while (this.#dealerHand.calcHand() < this.#MAX_NUMBER_OF_DEALER_HAND) {
             cards.push(this.#drawCard(this.#dealerHand));
         }
 
@@ -777,68 +776,68 @@ class BlackjackLogic {
 }
 
 /**
- * 手札クラス
+ * Hand
  */
 class Hand {
     /**
-     * Aの数字
+     * Ace figure
      */
     get #ACE_FIGURE() { return 1; }
     /**
-     * 特別なAの数字
+     * Ace special figure
      */
     get #ACE_SPECIAL_FIGURE() { return 11; }
     /**
-     * 絵札の数字リスト
+     * List of picture card figures
      */
     get #PICTURE_CARD_FIGURES() { return [11, 12, 13]; }
     /**
-     * 特別な絵札の数字
+     * Picture card special figure
      */
     get #PICTURE_CARD_SPECIAL_FIGURE() { return 10; };
 
     /**
-     * カードリスト
+     * Cards
      */
     #cards;
 
     /**
-     * コンストラクタ―
+     * Constructor
      */
     constructor() {
         this.#cards = new Array();
     }
 
     /**
-     * カードリストを返す
+     * The getter of cards.
      */
     get cards() {
         return this.#cards;
     }
 
     /**
-     * カードを追加する
-     * @param {Card} card カード
+     * Add a card.
+     * @param {Card} card
      */
     addCard(card) {
         if (this.calcHand() > BlackjackLogic.BLACKJACK) {
-            throw new Error('これ以上カードを引くことはできません');
+            throw new Error('You can\'t draw any more cards.');
         }
 
         this.#cards.push(card);
     }
 
     /**
-     * 手札の合計を計算する
-     * @param {boolean} isBackContained 裏面も含めて計算するかどうか
-     * @returns {number} 手札の合計
+     * Calculate the sum of hand.
+     * @param {boolean} isBackContained Whether to contain back side in calculation
+     * @returns {number} Sum of hand
      */
     calcHand(isBackContained = true) {
         let aceCount = 0;
         let sum = 0;
         this.#cards.forEach(card => {
             if (!(isBackContained || card.isFront)) {
-                // 裏面も含めて計算しない場合で、裏面のカードだったら終了する
+                // If it contains the back side in the calculation and it's the back side, finish processing.
                 return;
             }
 
@@ -847,7 +846,7 @@ class Hand {
                 return;
             }
 
-            // J、Q、Kは10点になる
+            // J, Q and K are worth 10 points.
             let figure = card.figure;
             if (this.#PICTURE_CARD_FIGURES.includes(figure)) {
                 figure = this.#PICTURE_CARD_SPECIAL_FIGURE;
@@ -860,10 +859,10 @@ class Hand {
     }
 
     /**
-     * 手札のAを計算する
-     * @param {number} aceCount 手札のAの数
-     * @param {number} sum A以外の手札の合計
-     * @returns {number} 手札のAの合計
+     * Calculate ace in hand.
+     * @param {number} aceCount Number of ace
+     * @param {number} sum Sum of hand except ace
+     * @returns {number}
      */
     #calcAce(aceCount, sum) {
         if (aceCount === 0) {
@@ -883,25 +882,25 @@ class Hand {
 }
 
 /**
- * デッキクラス
+ * Deck
  */
 class Deck {
     /**
-     * マークの数
+     * Number of marks
      */
     get #NUMBER_OF_MARKS() { return 4; }
     /**
-     * 数字の数
+     * Number of figures
      */
     get #NUMBER_OF_FIGURES() { return 13; }
 
     /**
-     * カードリスト
+     * Cards
      */
     #cards;
 
     /**
-     * コンストラクタ―
+     * Constructor
      */
     constructor() {
         this.#cards = new Array();
@@ -913,14 +912,14 @@ class Deck {
     }
 
     /**
-     * カードを引く
-     * @returns {Card} カード
+     * Draw a card
+     * @returns {Card}
      */
     drawCard() {
         const drawnIndex = Math.floor(Math.random() * this.#cards.length);
         const card = this.#cards.splice(drawnIndex, 1)[0] ?? null;
         if (card === null) {
-            throw new Error('これ以上デッキからカードを引くことができません');
+            throw new Error('You can\'t draw any more cards from the deck.');
         }
         
         return card;
@@ -928,31 +927,31 @@ class Deck {
 }
 
 /**
- * カードクラス
+ * Card
  */
 class Card {
     /**
-     * マーク
+     * Suit
      */
     #suit;
     /**
-     * 数字
+     * Figure
      */
     #figure;
     /**
-     * 画像のパス
+     * Image source
      */
     #imageSrc;
     /**
-     * 表面かどうか
+     * Whether a card is front side
      */
     #isFront;
 
     /**
-     * コンストラクタ―
-     * @param {number} suit マーク
-     * @param {number} figure 数字
-     * @param {string} imageSrc 画像のパス
+     * Constructor
+     * @param {number} suit
+     * @param {number} figure
+     * @param {string} imageSrc
      */
     constructor(suit, figure, imageSrc) {
         this.#suit = suit;
@@ -962,35 +961,35 @@ class Card {
     }
 
     /**
-     * マークのゲッター
+     * The getter of suit.
      */
     get suit() {
         return this.#suit;
     }
 
     /**
-     * 数字のゲッター
+     * The getter of figure.
      */
     get figure() {
         return this.#figure;
     }
 
     /**
-     * 画像のパスのゲッター
+     * The getter of image source.
      */
     get imageSrc() {
         return this.#imageSrc;
     }
 
     /**
-     * 表面かどうかのセッター
+     * The setter of whether a card is the front side.
      */
     set isFront(isFront) {
         this.#isFront = isFront;
     }
 
     /**
-     * 表面かどうかのゲッター
+     * The getter of whether a card is the front side.
      */
     get isFront() {
         return this.#isFront;

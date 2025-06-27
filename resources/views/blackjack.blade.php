@@ -8,18 +8,18 @@
 </head>
 <body>
   <div id="card-template" class="card invisible">
-    <!-- 裏面のコンテンツ -->
+    <!-- Elements on the back side of a card -->
     <div class="back is-rotation">
       <img src="images/card_back.png" alt="" />
     </div>
-    <!-- 表面のコンテンツ -->
+    <!-- Elements on the front side of a card -->
     <div class="front is-rotation">
       <img src="" alt="" />
     </div>
   </div>
 
   <div id="bet">
-    BETしてください<br>
+    Please bet.<br>
     <input type="number" min="0" id="bet-chip-text">
     <input type="button" value="OK" id="bet-button">
   </div>

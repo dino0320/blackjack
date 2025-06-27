@@ -9,7 +9,7 @@ use Illuminate\Http\JsonResponse;
 class UserException extends Exception
 {
     /**
-     * コンストラクター
+     * Constructor
      *
      * @param string $message
      */
@@ -19,7 +19,7 @@ class UserException extends Exception
     }
  
     /**
-     * 例外をレンダリングする
+     * Render the exception.
      *
      * @return JsonResponse
      */

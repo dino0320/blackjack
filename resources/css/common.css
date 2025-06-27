@@ -1,9 +1,9 @@
-  /* 表示しないようにするためのスタイル */
+  /* Style to hide element */
   .invisible {
     display: none;
   }
 
-  /* tableのスタイル */
+  /* Style for table */
   table, th, td {
     border: 1px solid;
   }

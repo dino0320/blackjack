@@ -7,16 +7,16 @@
   @vite(['resources/css/common.css', 'resources/js/ranking.js'])
 </head>
 <body>
-  <h2>ランキング</h2>
+  <h2>Ranking</h2>
   <table id="ranking-table">
     <tr>
-      <th>順位</th>
-      <th>ユーザー名</th>
-      <th>ハイスコア</th>
+      <th>Rank</th>
+      <th>User name</th>
+      <th>High score</th>
     </tr>
   </table>
 
-  あなたのスコア: <div id="high-score"></div>
+  Your high score: <div id="high-score"></div>
 
   <input type="button" value="TOP" id="top-button">
 </body>

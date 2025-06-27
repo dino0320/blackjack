@@ -1,16 +1,16 @@
 import { ErrorCodeConst } from './consts/error-code-const';
 
 /**
- * レスポンスを処理するのためのコールバック
+ * A callback for handling the response.
  * @callback handleResponseCallback
- * @param {Object | null} response レスポンスオブジェクト
+ * @param {Object | null} response
  */
 
 /**
- * APIを実行する
- * @param {string} command API名
- * @param {Object | null} requestObject リクエストオブジェクト
- * @param {handleResponseCallback | null} func レスポンスを処理するのためのコールバック
+ * Execute API.
+ * @param {string} command Name of API
+ * @param {Object | null} requestObject
+ * @param {handleResponseCallback | null} func A callback for handling the response
  */
 export function executeApi(command, requestObject = null, func = null) {
     const xhr = new XMLHttpRequest();
@@ -32,7 +32,7 @@ export function executeApi(command, requestObject = null, func = null) {
         }
 
         if (xhr.status !== 200) {
-            // 通信失敗
+            // Communication failure
             location.href = 'http://localhost:8080/home';
             return;
         }
@@ -51,7 +51,7 @@ export function executeApi(command, requestObject = null, func = null) {
 }
 
 /**
- * エラーを処理する
+ * Handle error.
  * @param {Object} response 
  */
 function handleError(response) {

@@ -8,15 +8,15 @@
 </head>
 <body>
   <div>
-    <h2>ブラックジャック</h2>
+    <h2>Blackjack</h2>
 
     <div id="name" class="invisible">
-      ユーザー名を入力してください<br>
+      Please enter a user name.<br>
       <input type="text" id="name-text"><input type="button" value="OK" id="ok-button">
     </div>
 
     <div id="game-home">
-      スタミナ: <div id="stamina"></div>
+      Your stamina: <div id="stamina"></div>
       <input type="button" value="START" id="start-button">
       <input type="button" value="RANKING" id="ranking-button">
     </div>
