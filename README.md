@@ -134,7 +134,7 @@ Connect to the Docker container and build assets such as CSS and Javascript.
 
 #### POST /api/sign-up
 - Description: Registers a new user and returns an API token.
-- Request body:
+- Request Body:
   ```json
   {
     "user_name": "Test",
