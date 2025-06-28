@@ -19,8 +19,6 @@ class SignUpController extends Controller
     {
         $request->validate([
             'user_name' => 'required',
-            //'email' => 'required|email',
-            //'password' => 'required',
             'device_name' => 'required',
         ]);
 
