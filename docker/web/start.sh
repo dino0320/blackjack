@@ -9,7 +9,7 @@ cd $PROJECT_PATH
 php artisan migrate --path=database/migrations/user --database=mysql
 php artisan migrate --path=database/migrations/master --database=sqlite
 
-# nvmが読み込まれていないため読み込む
+# nvm is not loaded so load it.
 set +x
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
@@ -17,7 +17,7 @@ set -x
 
 npm ci
 
-# ログ出力などのため権限を与える
+# Give permissions for log output etc.
 chmod 777 "$PROJECT_PATH/storage/logs"
 chmod 777 "$PROJECT_PATH/storage/framework/views"
 
