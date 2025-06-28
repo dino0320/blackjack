@@ -1,8 +1,11 @@
 ## Blackjack
 This is a server application for playing Blackjack. Its main feature is a game API, but it also includes a web interface that allows you to play Blackjack directly in your browser.
 
+Home:  
 ![Home image](images_for_readme/home.png)
+Blackjack:  
 ![Blackjack image](images_for_readme/blackjack.png)
+Ranking:  
 ![Ranking image](images_for_readme/ranking.png)
 
 ## Technologies Used

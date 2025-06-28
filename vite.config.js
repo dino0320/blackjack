@@ -11,6 +11,7 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/home.js',
                 'resources/js/blackjack.js',
+                'resources/js/ranking.js',
             ],
             refresh: true,
         }),
