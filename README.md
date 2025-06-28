@@ -35,7 +35,6 @@ Follow these steps to get this project up and run locally.
 
 ### Installation
 1. Clone this repository
-
   ```bash
   git clone https://github.com/dino0320/blackjack.git
   cd blackjack
@@ -43,7 +42,6 @@ Follow these steps to get this project up and run locally.
 
 2. Create `.env` file
 In this project root directory, create a `.env` file and copy the following contents into it.
-
   ```env
   APP_NAME=Blackjack
   APP_ENV=local
@@ -116,14 +114,12 @@ In this project root directory, create a `.env` file and copy the following cont
   ```
 
 3. Start the services with Docker Compose
-
   ```bash
   docker compose up -d
   ```
 
 4. Build assets
 Connect to the Docker container and build assets such as CSS and Javascript.
-
   ```bash
   docker compose exec web bash
   cd srv/blackjack/
