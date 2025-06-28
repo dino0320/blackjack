@@ -28,7 +28,7 @@ This is a server application for playing Blackjack. Its main feature is a game A
   - View the top 10 scores and your high score
 
 ## Getting Started
-Follow these steps to get this project up and run locally.
+Follow these steps to get this project up and running locally.
 
 ### Prerequisites
 - Docker / Docker Compose
@@ -41,7 +41,7 @@ Follow these steps to get this project up and run locally.
   ```
 
 2. Create `.env` file  
-In this project root directory, create a `.env` file and copy the following contents into it.
+  In this project root directory, create a `.env` file and copy the following contents into it.
   ```env
   APP_NAME=Blackjack
   APP_ENV=local
@@ -119,7 +119,7 @@ In this project root directory, create a `.env` file and copy the following cont
   ```
 
 4. Build assets  
-Connect to the Docker container and build assets such as CSS and Javascript.
+  Connect to the Docker container and build assets such as CSS and JavaScript.
   ```bash
   docker compose exec web bash
   cd srv/blackjack/
