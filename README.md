@@ -40,7 +40,7 @@ Follow these steps to get this project up and run locally.
   cd blackjack
   ```
 
-2. Create `.env` file
+2. Create `.env` file  
 In this project root directory, create a `.env` file and copy the following contents into it.
   ```env
   APP_NAME=Blackjack
@@ -118,7 +118,7 @@ In this project root directory, create a `.env` file and copy the following cont
   docker compose up -d
   ```
 
-4. Build assets
+4. Build assets  
 Connect to the Docker container and build assets such as CSS and Javascript.
   ```bash
   docker compose exec web bash
