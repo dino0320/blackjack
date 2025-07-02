@@ -53,7 +53,7 @@ class ModelMakeCommand extends \Illuminate\Foundation\Console\ModelMakeCommand
         $this->call('make:migration', [
             'name' => "create_{$table}_table",
             '--create' => $table,
-            '--path' => DatabaseConst::MIGRATIONS_BASEPATH . "/{$this->purpose}",
+            '--path' => database_path(DatabaseConst::MIGRATIONS_BASEPATH . "/{$this->purpose}"),
         ]);
     }
 
@@ -69,6 +69,10 @@ class ModelMakeCommand extends \Illuminate\Foundation\Console\ModelMakeCommand
     {
         $stub = parent::buildClass($name);
 
-        return str_replace('{{ connection }}', strtoupper($this->connection), $stub);
+        return str_replace(
+            ['{{ timestamps }}', '{{ connection }}'],
+            [$this->purpose === DatabaseConst::PURPOSE_MASTER ? 'false' : 'true', strtoupper($this->connection)],
+            $stub
+        );
     }
 }
