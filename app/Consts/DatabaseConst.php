@@ -32,5 +32,7 @@ class DatabaseConst
         self::PURPOSE_MASTER => self::CONNECTION_SQLITE,
     ];
 
-    public const MIGRATIONS_BASEPATH = 'database/migrations';
+    public const MIGRATIONS_BASEPATH = 'migrations';
+
+    public const DATA_BASEPATH = 'data';
 }

@@ -1,0 +1,2 @@
+stamina_id,min_point,max_point,initial_point,consumed_point,recovery_point
+1,0,100,100,20,20

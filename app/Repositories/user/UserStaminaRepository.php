@@ -8,6 +8,11 @@ use App\Repositories\Repository;
 class UserStaminaRepository extends Repository
 {
     /**
+     * Model class name
+     */
+    protected string $modelName = UserStamina::class;
+
+    /**
      * Select stamina Model.
      *
      * @param integer $userId

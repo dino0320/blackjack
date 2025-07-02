@@ -6,8 +6,8 @@ PROJECT_PATH=$1
 
 cd $PROJECT_PATH
 
-php artisan migrate --path=database/migrations/user --database=mysql
-php artisan migrate --path=database/migrations/master --database=sqlite
+php artisan migrate:fresh --path=database/migrations/user --database=mysql
+php artisan migrate:fresh --path=database/migrations/master --database=sqlite --seed
 
 # nvm is not loaded so load it.
 set +x
