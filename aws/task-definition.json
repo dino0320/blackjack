@@ -7,12 +7,21 @@
         {
             "name": "",
             "image": "",
-            "essential": true
+            "portMappings": [
+                {
+                    "containerPort": 80, 
+                    "hostPort": 80, 
+                    "protocol": "tcp"
+                }
+            ],
+            "essential": true,
+            "command": [
+                "/bin/sh -c \"aws s3 cp s3://blackjack-bucket-1000 /src/blackjack --recursive && chmod 755 /srv/blackjack/docker/web/start.sh && /srv/blackjack/docker/web/start.sh /srv/blackjack\""
+            ]
         }
     ],
-    "volumes": [],
     "networkMode": "awsvpc",
     "memory": "3 GB",
     "cpu": "1 vCPU",
-    "executionRoleArn": ""
+    "executionRoleArn": "ecsTaskExecutionRole"
 }
