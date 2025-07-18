@@ -16,7 +16,7 @@
             ],
             "essential": true,
             "command": [
-                "/bin/sh -c \"aws s3 cp s3://blackjack-bucket-1000 /src/blackjack --recursive && chmod 755 /srv/blackjack/docker/web/start.sh && /srv/blackjack/docker/web/start.sh /srv/blackjack\""
+                "/bin/sh -c \"aws s3 cp s3://blackjack-bucket-1000/blackjack.zip /src/blackjack.zip && unzip /src/blackjack.zip -d /src/blackjack && chmod 755 /srv/blackjack/docker/web/start.sh && /srv/blackjack/docker/web/start.sh /srv/blackjack\""
             ]
         }
     ],

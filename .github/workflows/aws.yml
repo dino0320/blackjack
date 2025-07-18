@@ -91,7 +91,9 @@ jobs:
       run: |
         docker build -t composer ./docker/composer
         docker run --rm -v `pwd`:/srv/blackjack composer bash -c "chmod 755 /srv/blackjack/docker/composer/start.sh && /srv/blackjack/docker/composer/start.sh /srv/blackjack"
-        aws s3 cp . s3://blackjack-bucket-1000/ --recursive
+        
+        zip blackjack.zip ./
+        aws s3 cp blackjack.zip s3://blackjack-bucket-1000/
 
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
