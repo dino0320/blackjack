@@ -18,7 +18,7 @@
             "command": [
                 "/bin/bash",
                 "-c",
-                "echo hello"
+                "aws s3 cp s3://blackjack-bucket-1000/blackjack.zip /src/ && unzip /src/blackjack.zip -d /src/blackjack && /srv/blackjack/aws/start.sh /srv/blackjack"
             ]
         }
     ],
