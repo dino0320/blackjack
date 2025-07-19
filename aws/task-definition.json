@@ -34,7 +34,7 @@
                     "value": "arn:aws:s3:::blackjack-bucket-1000/blackjack.env",
                     "type": "s3"
                 }
-            ],
+            ]
         }
     ],
     "networkMode": "awsvpc",
