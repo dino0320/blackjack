@@ -16,7 +16,7 @@
             ],
             "essential": true,
             "command": [
-                "/bin/sh -c \"echo hello\""
+                "/bin/bash -c \"echo hello\""
             ]
         }
     ],
