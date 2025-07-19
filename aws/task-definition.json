@@ -25,10 +25,16 @@
             },
             "essential": true,
             "command": [
-                "/bin/bash",
+                "/bin/sh",
                 "-c",
-                "aws s3 cp s3://blackjack-bucket-1000/blackjack.zip /src/ && unzip /src/blackjack.zip -d /src/blackjack && /srv/blackjack/aws/start.sh /srv/blackjack"
-            ]
+                "/srv/blackjack/docker/web/start.sh /srv/blackjack"
+            ],
+            "environmentFiles": [
+                {
+                    "value": "arn:aws:s3:::blackjack-bucket-1000/blackjack.env",
+                    "type": "s3"
+                }
+            ],
         }
     ],
     "networkMode": "awsvpc",

@@ -6,6 +6,10 @@ PROJECT_PATH=$1
 
 cd $PROJECT_PATH
 
+composer install
+
+php artisan env:decrypt --force
+
 php artisan migrate:fresh --path=database/migrations/user --database=mysql
 php artisan migrate:fresh --path=database/migrations/master --database=sqlite --seed
 

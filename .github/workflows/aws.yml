@@ -58,8 +58,6 @@ jobs:
       uses: aws-actions/configure-aws-credentials@v1
       with:
         role-to-assume: ${{ secrets.ROLE_TO_ASSUME }}
-        #aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        #aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ env.AWS_REGION }}
 
     - name: Login to Amazon ECR
@@ -86,14 +84,6 @@ jobs:
         task-definition: ${{ env.ECS_TASK_DEFINITION }}
         container-name: ${{ env.CONTAINER_NAME }}
         image: ${{ steps.build-image.outputs.image }}
-
-    - name: Pre-processing
-      run: |
-        docker build -t composer ./docker/composer
-        docker run --rm -v `pwd`:/srv/blackjack composer bash -c "chmod 755 /srv/blackjack/docker/composer/start.sh && /srv/blackjack/docker/composer/start.sh /srv/blackjack"
-        
-        zip blackjack.zip . -r
-        aws s3 cp blackjack.zip s3://blackjack-bucket-1000/
 
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1

@@ -1,5 +1,8 @@
 FROM amazonlinux:2023
 
+# Copy this project
+COPY ../.. /srv/blackjack
+
 # NGINX
 RUN yum -y install yum-utils
 COPY nginx/nginx.repo /etc/yum.repos.d/nginx.repo
@@ -18,6 +21,12 @@ COPY php/php-fpm.d/zzz-php-fpm.conf /etc/php-fpm.d/zzz-php-fpm.conf
 COPY php/php-fpm.d/zzz-www.conf /etc/php-fpm.d/zzz-www.conf
 RUN sed -i "s/error_log/;error_log/" /etc/php-fpm.conf
 RUN sed -i "s/php_admin_value\[error_log\]/;php_admin_value\[error_log\]/" /etc/php-fpm.d/www.conf
+
+# Composer
+RUN yum -y install php8.2-cli unzip-6.0
+COPY install-composer.sh /tmp/install-composer.sh
+RUN chmod 755 /tmp/install-composer.sh
+RUN /tmp/install-composer.sh /usr/local/bin/composer 2.7.6
 
 # Xdebug
 RUN yum -y install php-pear-1:1.10.13 php8.2-devel

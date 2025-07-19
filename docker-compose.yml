@@ -8,20 +8,14 @@ services:
     - 5173:5173
     extra_hosts:
     - host.docker.internal:host-gateway
+    environment:
+      APP_ENV: "local"
+      LARAVEL_ENV_ENCRYPTION_KEY: "base64:YGMi7lA91gNmaia++qjMC2OX33aCij483MEdx5sKtYg="
     command: bash -c "chmod 755 /srv/blackjack/docker/web/start.sh &&
              /srv/blackjack/docker/web/start.sh /srv/blackjack"
     depends_on:
-      composer:
-        condition: service_completed_successfully
       db:
         condition: service_healthy
-
-  composer:
-    build: ./docker/composer
-    volumes:
-    - .:/srv/blackjack
-    command: bash -c "chmod 755 /srv/blackjack/docker/composer/start.sh &&
-             /srv/blackjack/docker/composer/start.sh /srv/blackjack"
 
   db:
     build: ./docker/db
