@@ -27,7 +27,7 @@
             "command": [
                 "/bin/sh",
                 "-c",
-                "/srv/blackjack/docker/web/start.sh /srv/blackjack"
+                "chmod 755 /srv/blackjack/docker/web/start.sh && /srv/blackjack/docker/web/start.sh /srv/blackjack"
             ],
             "environmentFiles": [
                 {
