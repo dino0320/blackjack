@@ -8,6 +8,8 @@ cd $PROJECT_PATH
 
 composer install
 
+echo $APP_ENV
+
 php artisan env:decrypt --force
 
 php artisan migrate:fresh --path=database/migrations/user --database=mysql
