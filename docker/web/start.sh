@@ -9,8 +9,11 @@ cd $PROJECT_PATH
 composer install
 
 echo $APP_ENV
+#echo $LARAVEL_ENV_ENCRYPTION_KEY
+ls -l .env.production.encrypted
 
-php artisan env:decrypt --force
+php artisan env:decrypt --force --env=production # --key=base64:jz/Cma6YOap7vgA5HGY08SyHQS3laCwOQWBnaLfHDws=
+#php artisan env:decrypt --force
 
 php artisan migrate:fresh --path=database/migrations/user --database=mysql
 php artisan migrate:fresh --path=database/migrations/master --database=sqlite --seed
