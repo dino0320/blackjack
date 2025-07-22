@@ -9,6 +9,8 @@ cd $PROJECT_PATH
 composer install
 
 echo $APP_ENV
+echo $LARAVEL_ENV_ENCRYPTION_KEY
+ls -l .env.production.encrypted
 
 php artisan env:decrypt --force
 
