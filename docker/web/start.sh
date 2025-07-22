@@ -10,6 +10,8 @@ composer install
 
 php artisan env:decrypt --force --env=$APP_ENV
 
+mysql -u admin -p dIzFShSPW0kT6zofOkrA -h blackjack-db.c94qwmk4wfbx.ap-northeast-1.rds.amazonaws.com
+
 php artisan migrate:fresh --path=database/migrations/user --database=mysql
 php artisan migrate:fresh --path=database/migrations/master --database=sqlite --seed
 
