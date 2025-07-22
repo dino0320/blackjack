@@ -8,9 +8,6 @@ cd $PROJECT_PATH
 
 composer install
 
-echo $APP_ENV
-echo $LARAVEL_ENV_ENCRYPTION_KEY
-
 php artisan env:decrypt --force --env=$APP_ENV
 
 php artisan migrate:fresh --path=database/migrations/user --database=mysql
