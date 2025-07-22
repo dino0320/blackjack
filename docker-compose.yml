@@ -12,7 +12,7 @@ services:
     - host.docker.internal:host-gateway
     environment:
       APP_ENV: "local"
-      LARAVEL_ENV_ENCRYPTION_KEY: "base64:Jb/ExCWY68wlZrmqPnAFTgK8O8gne0R7tE37FusS7Q4="
+      LARAVEL_ENV_ENCRYPTION_KEY: "base64:vcB40Q/XIKiOvfXj3WlJjCij3PmPf9EP40jXlrAuyh4="
     command: bash -c "chmod 755 /srv/blackjack/docker/web/start.sh &&
              /srv/blackjack/docker/web/start.sh /srv/blackjack"
     depends_on:
@@ -23,7 +23,7 @@ services:
     build: ./docker/db
     environment:
       MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_DATABASE: database
+      MYSQL_DATABASE: user_database
       MYSQL_USER: user
       MYSQL_PASSWORD: password
     healthcheck:
