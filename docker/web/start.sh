@@ -12,7 +12,7 @@ php artisan env:decrypt --force --env=$APP_ENV
 
 echo test
 
-yum install bind-utils epel-release nc -y
+yum install bind-utils nmap-ncat -y
 nslookup blackjack-db.c94qwmk4wfbx.ap-northeast-1.rds.amazonaws.com
 nc -zv blackjack-db.c94qwmk4wfbx.ap-northeast-1.rds.amazonaws.com 3306
 
