@@ -9,6 +9,7 @@ cd $PROJECT_PATH
 composer install
 
 php artisan env:decrypt --force --env=$APP_ENV
+cp .env.$APP_ENV .env
 
 php artisan migrate:fresh --force --path=database/migrations/user --database=mysql
 php artisan migrate:fresh --force --path=database/migrations/master --database=sqlite --seed
