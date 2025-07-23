@@ -10,14 +10,14 @@ composer install
 
 php artisan env:decrypt --force --env=$APP_ENV
 
-echo test
+#echo test
 
-yum install bind-utils nmap-ncat -y
-nslookup blackjack-db.c94qwmk4wfbx.ap-northeast-1.rds.amazonaws.com
-nc -zv blackjack-db.c94qwmk4wfbx.ap-northeast-1.rds.amazonaws.com 3306
+#yum install bind-utils nmap-ncat -y
+#nslookup blackjack-db.c94qwmk4wfbx.ap-northeast-1.rds.amazonaws.com
+#nc -zv blackjack-db.c94qwmk4wfbx.ap-northeast-1.rds.amazonaws.com 3306
 
-php artisan migrate:fresh --force --path=database/migrations/user --database=mysql
-php artisan migrate:fresh --force --path=database/migrations/master --database=sqlite --seed
+#php artisan migrate:fresh --force --path=database/migrations/user --database=mysql
+#php artisan migrate:fresh --force --path=database/migrations/master --database=sqlite --seed
 
 # nvm is not loaded so load it.
 set +x
