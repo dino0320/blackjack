@@ -28,17 +28,13 @@ COPY docker/web/install-composer.sh /tmp/install-composer.sh
 RUN chmod 755 /tmp/install-composer.sh
 RUN /tmp/install-composer.sh /usr/local/bin/composer 2.7.6
 
-# Xdebug
-RUN yum -y install php-pear-1:1.10.13 php8.2-devel
-RUN pecl install xdebug-3.3.1
-COPY docker/web/php/conf.d/99-xdebug.ini /etc/php.d/99-xdebug.ini
-
 # MySQL Client
 RUN rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2023
 RUN yum -y install https://repo.mysql.com/mysql80-community-release-el9-1.noarch.rpm
 RUN yum -y install mysql-community-client-8.0.34
 
 # Redis
+RUN yum -y install php-pear-1:1.10.13 php8.2-devel
 RUN pecl install redis-6.0.2
 COPY docker/web/php/conf.d/50-redis.ini /etc/php.d/50-redis.ini
 
