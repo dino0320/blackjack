@@ -6,7 +6,6 @@ use App\Models\user\User;
 use App\Repositories\user\UserRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class SignUpController extends Controller
 {
@@ -23,8 +22,6 @@ class SignUpController extends Controller
             'device_name' => 'required',
         ]);
 
-        Log::info('after validate');
-
         $userRepository = new UserRepository();
         
         $user = new User([
@@ -33,8 +30,6 @@ class SignUpController extends Controller
         ]);
 
         $userRepository->upsertModel($user);
-
-        Log::info('after upsert');
     
         $token = $user->createToken($request->device_name);
     
