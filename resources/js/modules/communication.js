@@ -33,7 +33,7 @@ export function executeApi(command, requestObject = null, func = null) {
 
         if (xhr.status !== 200) {
             // Communication failure
-            location.href = 'http://localhost:8080/home';
+            location.href = 'http://localhost:80/home';
             return;
         }
 
@@ -57,16 +57,16 @@ export function executeApi(command, requestObject = null, func = null) {
 function handleError(response) {
     switch (response.error_code) {
         case ErrorCodeConst.BAD_REQUEST:
-            location.href = 'http://localhost:8080/home';
+            location.href = 'http://localhost:80/home';
             break;
 
         case ErrorCodeConst.UNAUTHORIZED:
             localStorage.removeItem('token');
-            location.href = 'http://localhost:8080/home';
+            location.href = 'http://localhost:80/home';
             break;
         
         default:
-            location.href = 'http://localhost:8080/home';
+            location.href = 'http://localhost:80/home';
             break;
     }
 }

@@ -27,5 +27,5 @@ executeApi(
 );
 
 topButtonElement.addEventListener('click', function () {
-    location.href = 'http://localhost:8080/home';
+    location.href = 'http://localhost:80/home';
 });

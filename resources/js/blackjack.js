@@ -23,10 +23,10 @@ document.querySelector('#next-button').addEventListener('click', function() {
             'finish-blackjack',
             { score: blackjackController.getChip() },
             function () {
-                location.href = 'http://localhost:8080/home';
+                location.href = 'http://localhost:80/home';
             },
             function () {
-                location.href = 'http://localhost:8080/home';
+                location.href = 'http://localhost:80/home';
             }
         );
         return;

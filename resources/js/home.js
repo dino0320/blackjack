@@ -41,9 +41,9 @@ document.querySelector('#ok-button').addEventListener('click', function () {
 });
 
 startButtonElement.addEventListener('click', function () {
-    location.href = 'http://localhost:8080/game';
+    location.href = 'http://localhost:80/game';
 });
 
 rankingButtonElement.addEventListener('click', function () {
-    location.href = 'http://localhost:8080/ranking';
+    location.href = 'http://localhost:80/ranking';
 });
