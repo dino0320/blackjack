@@ -36,9 +36,5 @@ fi
 chmod 777 "$PROJECT_PATH/storage/logs"
 chmod 777 "$PROJECT_PATH/storage/framework/views"
 
-yum install bind-utils nmap-ncat -y
-nslookup clustercfg.blackjack-redis.4t7rvc.apne1.cache.amazonaws.com
-nc -zv clustercfg.blackjack-redis.4t7rvc.apne1.cache.amazonaws.com 6379
-
 php-fpm
 nginx -g "daemon off;"
