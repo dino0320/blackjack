@@ -36,5 +36,7 @@ fi
 chmod 777 "$PROJECT_PATH/storage/logs"
 chmod 777 "$PROJECT_PATH/storage/framework/views"
 
+hostname -i
+
 php-fpm
 nginx -g "daemon off;"
