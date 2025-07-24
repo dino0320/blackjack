@@ -6,7 +6,7 @@ services:
     volumes:
     - .:/srv/blackjack
     ports:
-    - 8080:80
+    - 80:80
     - 5173:5173
     extra_hosts:
     - host.docker.internal:host-gateway

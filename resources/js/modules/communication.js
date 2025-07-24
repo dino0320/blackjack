@@ -14,7 +14,7 @@ import { ErrorCodeConst } from './consts/error-code-const';
  */
 export function executeApi(command, requestObject = null, func = null) {
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', `http://localhost:8080/api/${command}`);
+    xhr.open('POST', `http://localhost:80/api/${command}`);
 
     xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
     xhr.setRequestHeader('Accept', 'application/json');
