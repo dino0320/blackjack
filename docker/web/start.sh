@@ -14,16 +14,16 @@ cp .env.$APP_ENV .env
 php artisan migrate:fresh --force --path=database/migrations/user --database=mysql
 php artisan migrate:fresh --force --path=database/migrations/master --database=sqlite --seed
 
-set +x
-# nvm is not loaded so load it.
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-
 # Install Xdebug
 if [ "$APP_ENV" = "local" ]; then
   pecl install xdebug-3.3.1
   cp docker/web/php/conf.d/99-xdebug.ini /etc/php.d/99-xdebug.ini
 fi
+
+set +x
+# nvm is not loaded so load it.
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 set -x
 
 npm ci
