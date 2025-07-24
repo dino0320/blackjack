@@ -46,6 +46,3 @@ RUN /tmp/install-node.sh 20.14.0
 
 # SQLite
 RUN yum -y install sqlite-3.40.0
-
-# hostname
-RUN yum -y install hostname
