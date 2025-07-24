@@ -5,7 +5,7 @@
     "family": "blackjack-fargate",
     "containerDefinitions": [
         {
-            "name": "web",
+            "name": "blackjack-web",
             "image": "",
             "portMappings": [
                 {
