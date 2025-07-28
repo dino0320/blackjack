@@ -1,3 +1,4 @@
+import { ServerConst } from './modules/consts/server-const';
 import { executeApi } from './modules/communication';
 
 const userAgent = window.navigator.userAgent;
@@ -41,9 +42,9 @@ document.querySelector('#ok-button').addEventListener('click', function () {
 });
 
 startButtonElement.addEventListener('click', function () {
-    location.href = 'http://localhost:80/game';
+    location.href = ServerConst.WEB_SERVER_URL + 'game';
 });
 
 rankingButtonElement.addEventListener('click', function () {
-    location.href = 'http://localhost:80/ranking';
+    location.href = ServerConst.WEB_SERVER_URL + 'ranking';
 });

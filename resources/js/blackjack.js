@@ -1,3 +1,4 @@
+import { ServerConst } from './modules/consts/server-const';
 import { executeApi } from './modules/communication';
 import { BlackjackController } from './modules/blackjack';
 
@@ -23,10 +24,10 @@ document.querySelector('#next-button').addEventListener('click', function() {
             'finish-blackjack',
             { score: blackjackController.getChip() },
             function () {
-                location.href = 'http://localhost:80/home';
+                location.href = ServerConst.WEB_SERVER_URL + 'home';
             },
             function () {
-                location.href = 'http://localhost:80/home';
+                location.href = ServerConst.WEB_SERVER_URL + 'home';
             }
         );
         return;

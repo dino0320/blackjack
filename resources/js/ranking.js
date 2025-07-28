@@ -1,3 +1,4 @@
+import { ServerConst } from './modules/consts/server-const';
 import { executeApi } from './modules/communication';
 
 const rankingTableElement = document.querySelector('#ranking-table');
@@ -27,5 +28,5 @@ executeApi(
 );
 
 topButtonElement.addEventListener('click', function () {
-    location.href = 'http://localhost:80/home';
+    location.href = ServerConst.WEB_SERVER_URL + 'home';
 });

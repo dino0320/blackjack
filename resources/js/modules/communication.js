@@ -1,3 +1,4 @@
+import { ServerConst } from './consts/server-const';
 import { ErrorCodeConst } from './consts/error-code-const';
 
 /**
@@ -14,7 +15,7 @@ import { ErrorCodeConst } from './consts/error-code-const';
  */
 export function executeApi(command, requestObject = null, func = null) {
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', `http://localhost:80/api/${command}`);
+    xhr.open('POST', ServerConst.API_SERVER_URL + command);
 
     xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
     xhr.setRequestHeader('Accept', 'application/json');
@@ -33,7 +34,7 @@ export function executeApi(command, requestObject = null, func = null) {
 
         if (xhr.status !== 200) {
             // Communication failure
-            location.href = 'http://localhost:80/home';
+            location.href = ServerConst.WEB_SERVER_URL + 'home';
             return;
         }
 
@@ -57,16 +58,16 @@ export function executeApi(command, requestObject = null, func = null) {
 function handleError(response) {
     switch (response.error_code) {
         case ErrorCodeConst.BAD_REQUEST:
-            location.href = 'http://localhost:80/home';
+            location.href = ServerConst.WEB_SERVER_URL + 'home';
             break;
 
         case ErrorCodeConst.UNAUTHORIZED:
             localStorage.removeItem('token');
-            location.href = 'http://localhost:80/home';
+            location.href = ServerConst.WEB_SERVER_URL + 'home';
             break;
         
         default:
-            location.href = 'http://localhost:80/home';
+            location.href = ServerConst.WEB_SERVER_URL + 'home';
             break;
     }
 }
