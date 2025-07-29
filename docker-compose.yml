@@ -12,7 +12,7 @@ services:
     - host.docker.internal:host-gateway
     environment:
       APP_ENV: "local"
-      LARAVEL_ENV_ENCRYPTION_KEY: "base64:vcB40Q/XIKiOvfXj3WlJjCij3PmPf9EP40jXlrAuyh4="
+      LARAVEL_ENV_ENCRYPTION_KEY: "base64:Dt+yA2SxsUkZQaNcwXD4xc2pwhtQ8+03e5cpg/RTF4E="
     command: bash -c "chmod 755 /srv/blackjack/docker/web/start.sh &&
              /srv/blackjack/docker/web/start.sh /srv/blackjack"
     depends_on:
@@ -32,5 +32,5 @@ services:
       interval: 5s
       retries: 10
 
-  redis:
-    build: ./docker/redis
+  valkey:
+    build: ./docker/valkey
