@@ -39,7 +39,7 @@ RUN chmod 755 /tmp/install-node.sh
 RUN /tmp/install-node.sh 20.14.0
 ENV NVM_DIR="$HOME/.nvm"
 # nvm is not loaded so load it.
-RUN [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+RUN $NVM_DIR/nvm.sh
 RUN npm ci
 
 # SQLite
