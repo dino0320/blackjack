@@ -18,14 +18,6 @@ if [ "$APP_ENV" = "local" ]; then
   cp docker/web/php/conf.d/99-xdebug.ini /etc/php.d/99-xdebug.ini
 fi
 
-set +x
-# nvm is not loaded so load it.
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-set -x
-
-npm ci
-
 if [ "$APP_ENV" = "production" ]; then
   npm run build
 fi
