@@ -6,8 +6,6 @@ PROJECT_PATH=$1
 
 cd $PROJECT_PATH
 
-composer install
-
 php artisan env:decrypt --force --env=$APP_ENV
 cp .env.$APP_ENV .env
 

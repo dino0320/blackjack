@@ -16,8 +16,17 @@ services:
     command: bash -c "chmod 755 /srv/blackjack/docker/web/start.sh &&
              /srv/blackjack/docker/web/start.sh /srv/blackjack"
     depends_on:
+      composer:
+        condition: service_completed_successfully
       db:
         condition: service_healthy
+
+  composer:
+    build: ./docker/composer
+    volumes:
+    - .:/srv/blackjack
+    command: bash -c "chmod 755 /srv/blackjack/docker/composer/start.sh &&
+             /srv/blackjack/docker/composer/start.sh /srv/blackjack"
 
   db:
     build: ./docker/db

@@ -22,12 +22,6 @@ COPY docker/web/php/php-fpm.d/zzz-www.conf /etc/php-fpm.d/zzz-www.conf
 RUN sed -i "s/error_log/;error_log/" /etc/php-fpm.conf
 RUN sed -i "s/php_admin_value\[error_log\]/;php_admin_value\[error_log\]/" /etc/php-fpm.d/www.conf
 
-# Composer
-RUN yum -y install php8.2-cli unzip-6.0
-COPY docker/web/install-composer.sh /tmp/install-composer.sh
-RUN chmod 755 /tmp/install-composer.sh
-RUN /tmp/install-composer.sh /usr/local/bin/composer 2.7.6
-
 # MySQL Client
 RUN rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2023
 RUN yum -y install https://repo.mysql.com/mysql80-community-release-el9-1.noarch.rpm
