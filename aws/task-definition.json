@@ -27,12 +27,6 @@
                 "/bin/sh",
                 "-c",
                 "chmod 755 /srv/blackjack/docker/web/start.sh && /srv/blackjack/docker/web/start.sh /srv/blackjack"
-            ],
-            "environmentFiles": [
-                {
-                    "value": "arn:aws:s3:::blackjack-bucket-1000/blackjack.env",
-                    "type": "s3"
-                }
             ]
         }
     ],
