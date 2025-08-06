@@ -11,7 +11,7 @@ Access to the live application is available upon request to help reduce hosting 
 
 ![Ranking image](images_for_readme/ranking.png)
 
-## Technologies Used
+## Technologies Used (Back end)
 - Laravel 11
 - Nginx
 - PHP 8.2
@@ -22,7 +22,7 @@ Access to the live application is available upon request to help reduce hosting 
 - Docker / Docker Compose
 - GitHub Actions
 - AWS
-  - Amazon ECS
+  - Amazon ECS (Fargate)
   - Amazon RDS
   - Amazon ElastiCache
   - Amazon ECR
@@ -30,6 +30,13 @@ Access to the live application is available upon request to help reduce hosting 
   - Amazon CloudWatch
   - Application Load Balancer
   - VPC Endpoint
+
+## Technologies Used (Front end)
+- HTML
+- CSS
+- JavaScript
+- Blade (Laravel Templating Engine)
+- Vite (Asset Bundler)
 
 ## Architecture Diagram
 ![Architecture Diagram](images_for_readme/architecture_diagram.png)
