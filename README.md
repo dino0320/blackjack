@@ -1,13 +1,14 @@
 ## Blackjack
 This is a server application for playing Blackjack. Its main feature is a game API, but it also includes a web interface that allows you to play Blackjack directly in your browser.
 
-### Home
+This project features automated deployment to AWS using GitHub Actions.  
+Access to the live application is available upon request to help reduce hosting costs.
+
+### Screenshots
 ![Home image](images_for_readme/home.png)
 
-### Game
 ![Blackjack image](images_for_readme/blackjack.png)
 
-### Ranking
 ![Ranking image](images_for_readme/ranking.png)
 
 ## Technologies Used
@@ -19,6 +20,19 @@ This is a server application for playing Blackjack. Its main feature is a game A
 - Redis
 - SQLite
 - Docker / Docker Compose
+- GitHub Actions
+- AWS
+  - Amazon ECS
+  - Amazon RDS
+  - Amazon ElastiCache
+  - Amazon ECR
+  - Amazon S3
+  - Amazon CloudWatch
+  - Application Load Balancer
+  - VPC Endpoint
+
+## Architecture Diagram
+![Architecture Diagram](images_for_readme/architecture_diagram.png)
 
 ## Features
 - User Registration and Authentication (Sign Up / Sign In)
@@ -40,93 +54,12 @@ Follow these steps to get this project up and running locally.
   cd blackjack
   ```
 
-2. Create `.env` file  
-  In this project root directory, create a `.env` file and copy the following contents into it.
-  ```env
-  APP_NAME=Blackjack
-  APP_ENV=local
-  APP_KEY=base64:R+veY9PQUNfNCgxRY0ZC1miDBe1zwLEUZcjNS1rC3Ls=
-  APP_DEBUG=true
-  APP_TIMEZONE=UTC
-  APP_URL=http://localhost:8080
-
-  APP_LOCALE=en
-  APP_FALLBACK_LOCALE=en
-  APP_FAKER_LOCALE=en_US
-
-  APP_MAINTENANCE_DRIVER=file
-  APP_MAINTENANCE_STORE=database
-
-  BCRYPT_ROUNDS=12
-
-  LOG_CHANNEL=stack
-  LOG_STACK="single,stderr"
-  LOG_DEPRECATIONS_CHANNEL=null
-  LOG_LEVEL=debug
-
-  DB_CONNECTION=mysql
-  DB_HOST=db
-  DB_PORT=3306
-  DB_DATABASE=database
-  DB_USERNAME=user
-  DB_PASSWORD=password
-
-  DB_DATABASE_SQLITE=database.sqlite
-
-  SESSION_DRIVER=redis
-  SESSION_LIFETIME=120
-  SESSION_ENCRYPT=false
-  SESSION_PATH=/
-  SESSION_DOMAIN=null
-  SESSION_CONNECTION=default
-
-  BROADCAST_CONNECTION=log
-  FILESYSTEM_DISK=local
-  QUEUE_CONNECTION=database
-
-  CACHE_STORE=redis
-  CACHE_PREFIX=
-
-  MEMCACHED_HOST=127.0.0.1
-
-  REDIS_CLIENT=phpredis
-  REDIS_HOST=redis
-  REDIS_PASSWORD=null
-  REDIS_PORT=6379
-
-  MAIL_MAILER=log
-  MAIL_HOST=127.0.0.1
-  MAIL_PORT=2525
-  MAIL_USERNAME=null
-  MAIL_PASSWORD=null
-  MAIL_ENCRYPTION=null
-  MAIL_FROM_ADDRESS="hello@example.com"
-  MAIL_FROM_NAME="${APP_NAME}"
-
-  AWS_ACCESS_KEY_ID=
-  AWS_SECRET_ACCESS_KEY=
-  AWS_DEFAULT_REGION=us-east-1
-  AWS_BUCKET=
-  AWS_USE_PATH_STYLE_ENDPOINT=false
-
-  VITE_APP_NAME="${APP_NAME}"
-
-  ```
-
 3. Start the services with Docker Compose
   ```bash
-  docker compose up -d
+  IS_NPM_BUILT=1 docker compose up -d
   ```
 
-4. Build assets  
-  Connect to the Docker container and build assets such as CSS and JavaScript.
-  ```bash
-  docker compose exec web bash
-  cd srv/blackjack/
-  npm run build
-  ```
-
-5. Access the app at http://localhost:8080/home
+5. Access the app at http://localhost/home
 
 ## API Endpoints
 

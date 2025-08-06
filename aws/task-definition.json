@@ -19,7 +19,7 @@
                     "awslogs-create-group": "true",
                     "awslogs-group": "blackjack-logs",
                     "awslogs-region": "ap-northeast-1",
-                    "awslogs-stream-prefix": "blackjack-web"
+                    "awslogs-stream-prefix": "blackjack"
                 }
             },
             "essential": true,

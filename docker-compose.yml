@@ -13,6 +13,7 @@ services:
     environment:
       APP_ENV: "local"
       LARAVEL_ENV_ENCRYPTION_KEY: "base64:Dt+yA2SxsUkZQaNcwXD4xc2pwhtQ8+03e5cpg/RTF4E="
+      IS_NPM_BUILT: ${IS_NPM_BUILT:-0}
     command: bash -c "chmod 755 /srv/blackjack/docker/web/start.sh &&
              /srv/blackjack/docker/web/start.sh /srv/blackjack"
     depends_on:
