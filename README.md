@@ -5,9 +5,18 @@ This project features automated deployment to AWS using GitHub Actions.
 Access to the live application is available upon request to help reduce hosting costs.
 
 ### Screenshots
+#### Home
+User's stamina automatically recovers. Authentication is handled using Laravel Sanctum.
+
 ![Home image](images_for_readme/home.png)
 
+#### Blackjack
+Consume stamina to start a game. The score is managed securely on the server.
+
 ![Blackjack image](images_for_readme/blackjack.png)
+
+#### Ranking
+View the top 10 scores and the user's high score.
 
 ![Ranking image](images_for_readme/ranking.png)
 
