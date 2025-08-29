@@ -8,13 +8,16 @@ on:
 
 jobs:
   laravel-tests:
-
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
     - name: Execute tests (Unit and Feature tests)
       run: |
         docker compose up -d
         docker compose exec web bash -c "cd /srv/blackjack && php artisan test"
+    
     - name: docker compose down
       run: docker compose down -v
