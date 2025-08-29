@@ -31,6 +31,11 @@ Access to the live application is available upon request to help reduce hosting 
   - Application Load Balancer
   - VPC Endpoint
 
+### Automated Testing / CI
+This project includes PHPUnit tests set up with GitHub Actions.  
+Tests run automatically before the deployment.  
+Workflow file: `.github/workflows/phpunit.yml`
+
 ## Technologies Used (Front end)
 - HTML
 - CSS
