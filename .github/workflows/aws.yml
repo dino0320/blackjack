@@ -51,6 +51,8 @@ jobs:
     uses: ./.github/workflows/phpunit.yml
 
   deploy:
+    needs: laravel-tests
+    
     name: Deploy
     runs-on: ubuntu-latest
     environment: production
