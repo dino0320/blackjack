@@ -13,11 +13,12 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
+    
+    - name: Start services
+      run: docker compose up -d
 
     - name: Execute tests (Unit and Feature tests)
-      run: |
-        docker compose up -d
-        docker compose exec web bash -c "cd /srv/blackjack && php artisan test"
+      run: docker compose exec web bash -c "cd /srv/blackjack && php artisan test"
     
-    - name: docker compose down
+    - name: Stop services
       run: docker compose down -v
