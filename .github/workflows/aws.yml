@@ -48,8 +48,8 @@ permissions:
 
 jobs:
   laravel-tests:
-    uses: ./.github/workflows/phpunit.xml
-    
+    uses: ./.github/workflows/phpunit.yml
+
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
