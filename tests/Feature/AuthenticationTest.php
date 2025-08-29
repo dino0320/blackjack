@@ -28,7 +28,7 @@ class AuthenticationTest extends ApiTestCase
         $response = $this->postJson('/api/sign-up', ['user_name' => '', 'device_name' => 'testing']);
 
         $response
-            ->assertStatus(200)    
+            ->assertStatus(400)    
             ->assertJson(fn (AssertableJson $json) =>
                 $json->where('error_code', ErrorCodeConst::BAD_REQUEST)
                     ->whereType('error_message', 'string')
