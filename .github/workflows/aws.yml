@@ -47,6 +47,10 @@ permissions:
   contents: read
 
 jobs:
+  laravel-tests:
+    uses: ./.github/workflows/phpunit.xml
+
+jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
