@@ -5,6 +5,7 @@ namespace App\Models\user;
 use App\Consts\DatabaseConst;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class UserStamina extends Model
 {
@@ -53,5 +54,13 @@ class UserStamina extends Model
         return [
             'last_updated_at' => 'datetime',
         ];
+    }
+
+    /**
+     * Get the user that owns the user_stamina.
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
