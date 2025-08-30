@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <title></title>
   <meta charset="utf-8" />
-  @vite(['resources/css/common.css', 'resources/js/ranking.js'])
+  @vite(['resources/scss/common.scss', 'resources/js/ranking.js'])
 </head>
 <body>
   <h2>Ranking</h2>

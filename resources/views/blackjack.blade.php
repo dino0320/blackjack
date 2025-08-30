@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <title></title>
   <meta charset="utf-8" />
-  @vite(['resources/css/common.css', 'resources/css/blackjack.css', 'resources/js/blackjack.js'])
+  @vite(['resources/scss/common.scss', 'resources/scss/blackjack.scss', 'resources/js/blackjack.js'])
 </head>
 <body>
   <div id="card-template" class="card invisible">

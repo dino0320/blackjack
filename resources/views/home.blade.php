@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <title></title>
   <meta charset="utf-8" />
-  @vite(['resources/css/common.css', 'resources/js/home.js'])
+  @vite(['resources/scss/common.scss', 'resources/js/home.js'])
 </head>
 <body>
   <div>
