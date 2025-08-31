@@ -47,7 +47,7 @@ Workflow file: `.github/workflows/phpunit.yml`
 
 ## Technologies Used (Front end)
 - HTML
-- CSS
+- CSS (Bootstrap)
 - JavaScript
 - Blade (Laravel Templating Engine)
 - Vite (Asset Bundler)
