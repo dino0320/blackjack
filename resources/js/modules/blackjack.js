@@ -321,15 +321,6 @@ class BetLogic {
  */
 class BlackjackView {
     /**
-     * Prefix of sum of player hand message
-     */
-    get #PLAYER_HAND_SUM_MESSAGE_PREFIX() { return 'Player: '; }
-    /**
-     * Prefix of sum of dealer hand message
-     */
-    get #DEALER_HAND_SUM_MESSAGE_PREFIX() { return 'Dealer: '; }
-
-    /**
      * Index of hidden card
      */
     #hiddenCardIndex;
@@ -342,6 +333,14 @@ class BlackjackView {
      * Card template element
      */
     #cardTemplateElement;
+    /**
+     * Player element
+     */
+    #playerElement;
+    /**
+     * Dealer element
+     */
+    #dealerElement;
     /**
      * Player hand element
      */
@@ -359,9 +358,17 @@ class BlackjackView {
      */
     #dealerHandSumMessageElement;
     /**
-     * Win or lose message element
+     * Win alert element
      */
-    #winOrLoseMessageElement;
+    #winAlertElement;
+    /**
+     * Lose alert element
+     */
+    #loseAlertElement;
+    /**
+     * Draw alert element
+     */
+    #drawAlertElement;
     /**
      * Hit Button element
      */
@@ -382,13 +389,18 @@ class BlackjackView {
         this.#hiddenCardIndex = 0;
         this.#hiddenCardImageSrcList = new Array();
 
+        this.#playerElement = document.querySelector('#player');
+        this.#dealerElement = document.querySelector('#dealer');
+
         this.#cardTemplateElement = document.querySelector('#card-template');
         this.#playerHandElement = document.querySelector('#player-hand');
         this.#dealerHandElement = document.querySelector('#dealer-hand');
 
         this.#playerHandSumMessageElement = document.querySelector('#player-number-of-cards-message');
         this.#dealerHandSumMessageElement = document.querySelector('#dealer-number-of-cards-message');
-        this.#winOrLoseMessageElement = document.querySelector('#win-or-lose-message');
+        this.#winAlertElement = document.querySelector('#win-alert');
+        this.#loseAlertElement = document.querySelector('#lose-alert');
+        this.#drawAlertElement = document.querySelector('#draw-alert');
 
         this.#hitButtonElement = document.querySelector('#hit-button');
         this.#standButtonElement = document.querySelector('#stand-button');
@@ -401,6 +413,9 @@ class BlackjackView {
      * @param {Hand} dealerHand
      */
     initializeHand(playerHand, dealerHand) {
+        this.#playerElement.classList.remove('invisible');
+        this.#dealerElement.classList.remove('invisible');
+
         this.addPlayerCards(playerHand.cards);
         this.addDealerCards(dealerHand.cards);
 
@@ -491,8 +506,8 @@ class BlackjackView {
      * @param {number} dealerHandSum
      */
     updateHandValueMessage(playerHandSum, dealerHandSum) {
-        this.#playerHandSumMessageElement.innerHTML = this.#PLAYER_HAND_SUM_MESSAGE_PREFIX + playerHandSum;
-        this.#dealerHandSumMessageElement.innerHTML = this.#DEALER_HAND_SUM_MESSAGE_PREFIX + dealerHandSum;
+        this.#playerHandSumMessageElement.innerHTML = playerHandSum;
+        this.#dealerHandSumMessageElement.innerHTML = dealerHandSum;
     }
 
     /**
@@ -508,15 +523,15 @@ class BlackjackView {
 
         switch(winOrLose) {
             case BlackjackLogic.WIN:
-                this.#winOrLoseMessageElement.innerHTML = 'You win.';
-                break;
-
-            case BlackjackLogic.DRAW:
-                this.#winOrLoseMessageElement.innerHTML = 'Draw.';
+                this.#winAlertElement.classList.remove('invisible');
                 break;
 
             case BlackjackLogic.LOSE:
-                this.#winOrLoseMessageElement.innerHTML = 'You lose.';
+                this.#loseAlertElement.classList.remove('invisible');
+                break;
+
+            case BlackjackLogic.DRAW:
+                this.#drawAlertElement.classList.remove('invisible');
                 break;
 
             default:
@@ -529,7 +544,7 @@ class BlackjackView {
      */
     #showCards() {
         const hiddenCardImageSrcList = this.#hiddenCardImageSrcList
-        document.querySelectorAll('.card').forEach(function (cardElement) {
+        document.querySelectorAll('.playing-card').forEach(function (cardElement) {
             if ('hiddenCardIndex' in cardElement.dataset) {
                 // Make a card rotate and set its image source.
                 const cardFrontElement = cardElement.querySelector('.front');
@@ -544,6 +559,9 @@ class BlackjackView {
      * Clean the view.
      */
     cleanView() {
+        this.#playerElement.classList.add('invisible');
+        this.#dealerElement.classList.add('invisible');
+
         // Empty player hand.
         const playerHandElement = this.#playerHandElement.cloneNode(false);
         this.#playerHandElement.parentNode.replaceChild(playerHandElement, this.#playerHandElement);
@@ -555,7 +573,10 @@ class BlackjackView {
 
         this.#playerHandSumMessageElement.innerHTML = '';
         this.#dealerHandSumMessageElement.innerHTML = '';
-        this.#winOrLoseMessageElement.innerHTML = '';
+        
+        this.#winAlertElement.classList.add('invisible');
+        this.#loseAlertElement.classList.add('invisible');
+        this.#drawAlertElement.classList.add('invisible');
 
         this.#hitButtonElement.classList.add('invisible');
         this.#standButtonElement.classList.add('invisible');

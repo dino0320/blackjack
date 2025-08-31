@@ -4,7 +4,7 @@ import { executeApi } from './modules/communication';
 const userAgent = window.navigator.userAgent;
 const nameElement = document.querySelector('#name');
 const gameHomeElement = document.querySelector('#game-home');
-const staminaElement = document.querySelector('#stamina');
+const staminaProgressBarElement = document.querySelector('#stamina-progress-bar');
 const startButtonElement = document.querySelector('#start-button');
 const rankingButtonElement = document.querySelector('#ranking-button');
 
@@ -17,7 +17,8 @@ if (localStorage.getItem('token') === null) {
         null,
         function (response) {
             localStorage.setItem('token', response.token);
-            staminaElement.innerHTML = response.stamina;
+            staminaProgressBarElement.style.width = `${response.stamina}%`;
+            staminaProgressBarElement.innerHTML = response.stamina;
         }
     );
 }
@@ -33,7 +34,8 @@ document.querySelector('#ok-button').addEventListener('click', function () {
                 'create-game-data',
                 null,
                 function (response) {
-                    staminaElement.innerHTML = response.stamina;
+                    staminaProgressBarElement.style.width = `${response.stamina}%`;
+                    staminaProgressBarElement.innerHTML = response.stamina;
                     gameHomeElement.classList.remove('invisible');
                 }
             );

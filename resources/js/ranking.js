@@ -1,7 +1,7 @@
 import { ServerConst } from './modules/consts/server-const';
 import { executeApi } from './modules/communication';
 
-const rankingTableElement = document.querySelector('#ranking-table');
+const rankingTableElement = document.querySelector('#ranking-table > tbody');
 const highScoreElement = document.querySelector('#high-score');
 const topButtonElement = document.querySelector('#top-button');
 

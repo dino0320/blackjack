@@ -4,10 +4,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <title></title>
   <meta charset="utf-8" />
-  @vite(['resources/scss/common.scss', 'resources/scss/blackjack.scss', 'resources/js/blackjack.js'])
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  @vite(['resources/scss/bootstrap.scss', 'resources/scss/common.scss', 'resources/scss/blackjack.scss', 'resources/js/blackjack.js'])
 </head>
-<body>
-  <div id="card-template" class="card invisible">
+<body class="text-bg-success">
+  <div id="card-template" class="playing-card invisible">
     <!-- Elements on the back side of a card -->
     <div class="back is-rotation">
       <img src="images/card_back.png" alt="" />
@@ -18,30 +19,49 @@
     </div>
   </div>
 
+  <div id="win-alert" class="alert alert-success invisible" role="alert">You win.</div>
+  <div id="lose-alert" class="alert alert-danger invisible" role="alert">You lose.</div>
+  <div id="draw-alert" class="alert alert-secondary invisible" role="alert">Draw.</div>
+
   <div id="bet">
-    Please bet.<br>
-    <input type="number" min="0" id="bet-chip-text">
-    <input type="button" value="OK" id="bet-button">
+    <h5>Please bet</h5>
+    <div class="input-group">
+      <input type="number" id="bet-chip-text" class="form-control" aria-describedby="bet-button" min="1" value="1">
+      <button id="bet-button" class="btn btn-primary" type="button">BET</button>
+    </div>
   </div>
 
-  <div id="win-or-lose-message" class="win-or-lose-message">
-  </div>
+  <h3><span id="chip-message" class="badge bg-warning chip-message">
+  </span></h3>
 
-  <div id="dealer-hand" class="hand">
-  </div>
-  <div id="dealer-number-of-cards-message" class="number-of-cards-message">
-  </div>
-
-  <div id="player-hand" class="hand">
-  </div>
-  <div id="player-number-of-cards-message" class="number-of-cards-message">
-  </div>
-
-  <input type="button" value="HIT" id="hit-button" class="invisible">
-  <input type="button" value="STAND" id="stand-button" class="invisible">
-  <input type="button" value="NEXT" id="next-button" class="invisible">
-
-  <div id="chip-message" class="chip-message">
+  <div class="container text-center">
+    <div class="row">
+      <div class="col">
+        <div id="player" class="card text-bg-success invisible">
+          <div class="card-body">
+            <h5 class="card-title">Player</h5>
+            <h3><span id="player-number-of-cards-message" class="badge bg-secondary number-of-cards-message">
+            </span></h3>
+            <div id="player-hand" class="hand">
+            </div>
+            <button type="button" id="hit-button" class="btn btn-primary invisible">HIT</button>
+            <button type="button" id="stand-button" class="btn btn-primary invisible">STAND</button>
+            <button type="button" id="next-button" class="btn btn-primary invisible">NEXT</button>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div id="dealer" class="card text-bg-success invisible">
+          <div class="card-body">
+            <h5 class="card-title">Dealer</h5>
+            <h3><span id="dealer-number-of-cards-message" class="badge bg-secondary number-of-cards-message">
+            </span></h3>
+            <div id="dealer-hand" class="hand">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </body>
 </html>
