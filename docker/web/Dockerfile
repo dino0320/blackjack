@@ -1,9 +1,7 @@
 FROM amazonlinux:2023
 
-ARG PROJECT_PATH="/srv/blackjack"
-
 # Copy this project
-COPY . $PROJECT_PATH
+COPY . /srv/blackjack
 
 # NGINX
 RUN yum -y install yum-utils
@@ -38,7 +36,7 @@ COPY docker/web/php/conf.d/50-valkey.ini /etc/php.d/50-valkey.ini
 RUN touch ~/.bashrc
 COPY docker/web/install-npm.sh /tmp/install-npm.sh
 RUN chmod 755 /tmp/install-npm.sh
-RUN /tmp/install-npm.sh 20.14.0 $PROJECT_PATH
+RUN /tmp/install-npm.sh 20.14.0
 
 # SQLite
 RUN yum -y install sqlite-3.40.0
