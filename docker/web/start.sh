@@ -19,8 +19,7 @@ if [ "$APP_ENV" = "local" ]; then
 fi
 
 # nvm is not loaded so load it.
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+source ~/.bashrc
 
 npm ci
 
