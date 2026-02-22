@@ -25,8 +25,9 @@ php artisan migrate:fresh --force --path=database/migrations/user --database=mys
 php artisan migrate:fresh --force --path=database/migrations/master --database=sqlite --seed
 
 # Give permissions for log output etc.
-chmod 775 "$PROJECT_PATH/storage/logs"
-chmod 775 "$PROJECT_PATH/storage/framework/views"
+chmod 775 "$PROJECT_PATH/storage"
+#chmod 775 "$PROJECT_PATH/storage/logs"
+#chmod 775 "$PROJECT_PATH/storage/framework/views"
 
 # Create a ready flag
 touch /tmp/app-ready
