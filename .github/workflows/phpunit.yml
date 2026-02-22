@@ -12,10 +12,15 @@ jobs:
       uses: actions/checkout@v4
     
     - name: Start services
-      run: docker compose up -d
+      run: IS_NPM_BUILT=1 docker compose up -d
+    
+    - name: Wait for App Readiness (Build & Migration)
+      run: |
+        # Wait up to 3 minutes (180 seconds)
+        timeout 180s bash -c 'until docker compose exec web test -f /tmp/app-ready; do echo "Waiting for setup to finish..."; sleep 5; done'
 
     - name: Execute tests (Unit and Feature tests)
-      run: docker compose exec web bash -c "cd /srv/blackjack && php artisan test"
+      run: docker compose exec web php artisan test
     
     - name: Stop services
       run: docker compose down -v

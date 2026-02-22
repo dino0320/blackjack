@@ -1,42 +1,89 @@
-FROM amazonlinux:2023
+# --- Stage 1: Install PHP dependencies for production ---
+FROM composer:2.7.6 AS composer_production
+WORKDIR /app
+RUN docker-php-ext-install bcmath
+COPY . .
+RUN composer install --no-dev --optimize-autoloader --no-scripts
 
-# Copy this project
-COPY . /srv/blackjack
 
-# NGINX
-RUN yum -y install yum-utils
+# --- Stage 2: Install PHP dependencies (including dev) for node_production ---
+FROM composer:2.7.6 AS composer_node_helper
+WORKDIR /app
+RUN docker-php-ext-install bcmath
+COPY . .
+RUN composer install
+
+
+# --- Stage 3: Build frontend assets for production ---
+FROM node:20.14.0-alpine AS node_production
+WORKDIR /app
+RUN apk update && apk add --no-cache php83 php83-mbstring php83-tokenizer && \
+    ln -sf /usr/bin/php83 /usr/bin/php
+COPY . .
+COPY --from=composer_node_helper /app/vendor ./vendor
+RUN npm ci && npm run build
+
+
+# --- Stage 4: Base image with Nginx and PHP-FPM ---
+FROM amazonlinux:2023 AS base
+
+# Install Nginx, php-fpm, PhpRedis and SQLite
+
+# Install packages and remove cache
 COPY docker/web/nginx/nginx.repo /etc/yum.repos.d/nginx.repo
-RUN yum -y install nginx-1.24.0
-COPY docker/web/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
-RUN sed -i s/notice/warn/ /etc/nginx/nginx.conf
-RUN ln -s /dev/stdout /var/log/nginx/access.log
-RUN ln -s /dev/stderr /var/log/nginx/error.log
+RUN yum -y update && \
+    yum -y install yum-utils nginx-1.24.0 \
+    php8.2-fpm php8.2-mysqlnd php8.2-mbstring php8.2-bcmath \
+    php-pear-1:1.10.13 php8.2-devel \
+    sqlite-3.40.0 && \
+    pecl install redis-6.1.0 && \
+    yum clean all && rm -rf /var/cache/yum
 
-# php-fpm
-RUN yum -y install php8.2-fpm php8.2-mysqlnd php8.2-mbstring
-RUN mkdir /run/php-fpm
-RUN mkdir /var/run/php
-COPY docker/web/php/conf.d/zzz-php.ini /etc/php.d/zzz-php.ini
+# Copy configurations
+COPY docker/web/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
 COPY docker/web/php/php-fpm.d/zzz-php-fpm.conf /etc/php-fpm.d/zzz-php-fpm.conf
 COPY docker/web/php/php-fpm.d/zzz-www.conf /etc/php-fpm.d/zzz-www.conf
-RUN sed -i "s/error_log/;error_log/" /etc/php-fpm.conf
-RUN sed -i "s/php_admin_value\[error_log\]/;php_admin_value\[error_log\]/" /etc/php-fpm.d/www.conf
-
-# MySQL Client
-RUN rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2023
-RUN yum -y install https://repo.mysql.com/mysql80-community-release-el9-1.noarch.rpm
-RUN yum -y install mysql-community-client-8.0.34
-
-# Valkey
-RUN yum -y install php-pear-1:1.10.13 php8.2-devel
-RUN pecl install redis-6.1.0
 COPY docker/web/php/conf.d/50-valkey.ini /etc/php.d/50-valkey.ini
 
-# Node.js
-RUN touch ~/.bashrc
-COPY docker/web/install-npm.sh /tmp/install-npm.sh
-RUN chmod 755 /tmp/install-npm.sh
-RUN /tmp/install-npm.sh 20.14.0
+# Prepare logs and directories
+RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
+    ln -sf /dev/stderr /var/log/nginx/error.log && \
+    mkdir -p /run/php-fpm /var/run/php && \
+    sed -i "s/error_log/;error_log/" /etc/php-fpm.conf && \
+    sed -i "s/php_admin_value\[error_log\]/;php_admin_value\[error_log\]/" /etc/php-fpm.d/www.conf
 
-# SQLite
-RUN yum -y install sqlite-3.40.0
+# Add the nginx user to the root group for permission access
+RUN usermod -aG root nginx
+
+
+# --- Stage 5: Development environment (Local) ---
+FROM base AS local
+ARG PROJECT_PATH=/srv/blackjack
+WORKDIR $PROJECT_PATH
+
+# Install Composer, Node.js and Xdebug
+
+# Install packages and remove cache
+RUN yum -y update && \
+    yum -y install php8.2 php8.2-bcmath unzip-6.0 \
+    tar && \
+    pecl install xdebug-3.3.1 && \
+    yum clean all && rm -rf /var/cache/yum
+
+# Copy configurations and scripts
+COPY docker/web/install-composer.sh /tmp/install-composer.sh
+COPY docker/web/install-npm.sh /tmp/install-npm.sh
+COPY docker/web/php/conf.d/99-xdebug.ini /etc/php.d/99-xdebug.ini
+
+# Install Composer and Node.js
+RUN chmod 755 /tmp/install-composer.sh && /tmp/install-composer.sh /usr/local/bin/composer 2.7.6 && \
+    touch ~/.bashrc && chmod 755 /tmp/install-npm.sh && /tmp/install-npm.sh 20.14.0
+
+
+# --- Stage 6: Production environment ---
+FROM base AS production
+ARG PROJECT_PATH=/srv/blackjack
+WORKDIR $PROJECT_PATH
+COPY . .
+COPY --from=composer_production /app/vendor ./vendor
+COPY --from=node_production /app/public/build ./public/build
